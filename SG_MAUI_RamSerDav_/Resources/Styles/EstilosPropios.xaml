@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+   
+
+    <Color x:Key="color0">#212121</Color>
+        <Color x:Key="color1">#db3a34</Color>
+        <Color x:Key="color2">#ffc857</Color>
+        <Color x:Key="color3">#FFD590</Color>
+        <Color x:Key="color4">#FFE5B9</Color>
+        <Color x:Key="color5">#28C2D1</Color>
+        <Color x:Key="color6">#7BDDEF</Color>
+        <Color x:Key="color7">#C3F2F4</Color>
+        
+
+
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="MiFuente" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource color7}, Dark={StaticResource color0}}" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color2}, Dark={StaticResource color7}}" />
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="MinimumHeightRequest" Value="44"/>
+            <Setter Property="MinimumWidthRequest" Value="44"/>
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource color7}, Dark={StaticResource color0}}" />
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color0}, Dark={StaticResource color7}}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+
+        <Style TargetType="Entry">
+            <Setter Property="FontFamily" Value="MiFuente" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource color0}, Dark={StaticResource color7}}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource color2}, Dark={StaticResource color4}}" />
+            <Setter Property="MinimumHeightRequest" Value="44"/>
+            <Setter Property="MinimumWidthRequest" Value="44"/>
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource color2}, Dark={StaticResource color4}}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+
+
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="MiFuente" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource color0}, Dark={StaticResource color7}}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="FontSize" Value="40" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource color2}, Dark={StaticResource color4}}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+
+    
+        <ContentView x:Key="vistaSinResultados">
+            <VerticalStackLayout>
+                <Image
+                HeightRequest="150"
+                Source="no_elementos.png"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"/>
+                <Label
+                Text="Ningun elemento en la lista"
+                HorizontalOptions="Center"
+                FontSize="Header"/>
+            </VerticalStackLayout>
+        </ContentView>
+
+    
+    
+
+        <Style TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="{StaticResource color7}" />
+            <Setter Property="Padding" Value="25"/>
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource color3}, Dark={StaticResource color6}}" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+
+    
+
+        <!--Dejo por aquí una plantilla de un DataTemplate para modificar mas adelante.-->
+    
+        <!--<DataTemplate x:Key="vistaNormal" >
+            <HorizontalStackLayout>
+                <Frame BackgroundColor="White"  HeightRequest="200" WidthRequest="250" Margin="0,25,0,0">
+                    <StackLayout>
+                            <Label Text="{Binding Nombre}" TextColor="Black"  FontAttributes="Bold"/>
+                            <Label Text="{Binding Apellidos}" TextColor="Black"  FontAttributes="Bold"/>
+                            <Label Text="{Binding Id}" TextColor="Black"  FontAttributes="Bold"/>
+                            <Label Text="{Binding EsJefe, Converter={StaticResource MiConversor}}" TextColor="Black" FontAttributes="Bold"/>
+
+                    </StackLayout>
+                    </Frame>
+                    <ImageButton  WidthRequest="15" HeightRequest="15" HorizontalOptions="Start" 
+                                  Command="{Binding BorrarProfesorCommand}" 
+                                  CommandParameter="{Binding Id}">
+                        <ImageButton.Source>
+                            <FontImageSource
+                            FontFamily="MisIconos"
+                            Glyph="&#xF1F8;" 
+                            Color="Black"/>
+                        </ImageButton.Source>
+                    </ImageButton>
+                </HorizontalStackLayout> 
+        </DataTemplate>-->
+
+
+
+
+       
+
+</ResourceDictionary>

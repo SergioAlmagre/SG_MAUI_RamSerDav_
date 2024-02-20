@@ -1,7 +1,8 @@
 ﻿
+using SG_MAUI_RamSerDav_.MVVM.Abstractions;
+using SG_MAUI_RamSerDav_.MVVM.Constants;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
-using sqlLitePrueba.MVVM.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sqlLitePrueba.Repositories
+namespace SG_MAUI_RamSerDav_.Repositories
 {
     public class BaseRepository<T> :
     IBaseRepository<T> where T : TableData, new()
