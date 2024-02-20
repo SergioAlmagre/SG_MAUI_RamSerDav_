@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Cambio DaAM
 namespace sqlLitePrueba.MVVM.Abstractions
 {
     public class TableData
