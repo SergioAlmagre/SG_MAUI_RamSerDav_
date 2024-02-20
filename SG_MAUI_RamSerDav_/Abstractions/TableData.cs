@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 // Cambio DaAM
 //instalacion de nuggets
+//Install-Package
 namespace sqlLitePrueba.MVVM.Abstractions
 {
     public class TableData
