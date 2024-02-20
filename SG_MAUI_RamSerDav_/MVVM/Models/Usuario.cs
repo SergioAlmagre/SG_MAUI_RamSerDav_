@@ -2,7 +2,7 @@
 using System.IO;
 
 // Objeto Usuario
-namespace SQLitePrueba.MVVM.Models
+namespace SG_MAUI_RamSerDav_.MVVM.Models
 {
     [SQLite.Table("Usuarios")]
     public class Usuario : TableData
