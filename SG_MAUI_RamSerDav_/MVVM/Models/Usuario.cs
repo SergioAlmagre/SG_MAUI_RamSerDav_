@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-
+// Objeto Usuario
 namespace SQLitePrueba.MVVM.Models
 {
     [SQLite.Table("Usuarios")]
