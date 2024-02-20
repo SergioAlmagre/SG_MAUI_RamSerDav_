@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sqlLitePrueba.MVVM.Abstractions
+namespace SG_MAUI_RamSerDav_.MVVM.Abstractions
 {
     public interface IBaseRepository<T> : IDisposable
     where T : TableData, new()
