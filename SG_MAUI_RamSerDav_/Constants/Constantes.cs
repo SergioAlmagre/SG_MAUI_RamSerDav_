@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sqlLitePrueba.MVVM.Constants
+namespace SG_MAUI_RamSerDav_.MVVM.Constants
 {
     public static class Constantes
     {
