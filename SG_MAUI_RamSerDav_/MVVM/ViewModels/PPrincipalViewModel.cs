@@ -27,8 +27,9 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
             btnSalirCommand = new Command(() =>
             {
-            //Vuelve a la página del login pero habría que pensar si se cierra la aplicación o no
-            App.Current.MainPage.Navigation.PopAsync();
+            
+                //App.Current.MainPage.Navigation.PopAsync();//Vuelve a la página del login
+                App.Current.Quit(); //Cierra la aplicación
             });
 
         }
