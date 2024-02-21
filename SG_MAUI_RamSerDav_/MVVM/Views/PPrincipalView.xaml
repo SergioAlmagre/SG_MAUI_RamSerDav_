@@ -3,10 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SG_MAUI_RamSerDav_.MVVM.ViewModels.PPrincipalView"
              Title="PPrincipalView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid HorizontalOptions="CenterAndExpand" Margin="0,25,0,0" VerticalOptions="CenterAndExpand" ColumnDefinitions="*,*">
+        <ImageButton Grid.Column="0" Source="usuarios.png" Padding="10" WidthRequest="250" HeightRequest="250" Command="{Binding btnIrGestionUsuariosCommand}" Margin="25,25,25,25"/>
+        <ImageButton Grid.Column="1" Source="salir.png" Padding="10" WidthRequest="250" HeightRequest="250" Command="{Binding btnSalirCommand}" Margin="25,25,25,25"/>
+    </Grid>
 </ContentPage>
