@@ -14,8 +14,10 @@ namespace SG_MAUI_RamSerDav_.MVVM.Selectors
     [AddINotifyPropertyChangedInterface]
     public class SelectorsTemplates : DataTemplateSelector
     {
-        //protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
-        //{
+        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+        {
+
+            var noValePana = 0;
             //var profe = (Profesor)item;
             //if (profe.EsJefe)
             //{
@@ -33,7 +35,8 @@ namespace SG_MAUI_RamSerDav_.MVVM.Selectors
             //       .TryGetValue("vistaMasExperiencia", out var estiloExperiencia);
             //    return (DataTemplate)estiloExperiencia;
             //}
-            //else{
+            //else
+            //{
             //    Application
             //       .Current
             //       .Resources
