@@ -7,7 +7,7 @@
         <!-- Imagen, Elige una imagen -->
         <Image Source="algooo.jpg" Aspect="AspectFit" HeightRequest="200" />
 
-        <!-- Lógica de Texto -->
+        <!-- Logica de Texto -->
         <Entry Placeholder="Username" Text="{Binding usuarioActual.Email}" />
         <Entry Placeholder="Password" IsPassword="True" Text="{Binding usuarioActual.Password}" />
 

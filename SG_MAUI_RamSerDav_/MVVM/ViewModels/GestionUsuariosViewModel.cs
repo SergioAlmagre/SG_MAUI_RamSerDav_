@@ -44,9 +44,16 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             GuardarCommand = new Command(() =>
             {
                 App.UsuarioRepo.SaveItem(UsuarioActual);
+                Console.WriteLine(App.UsuarioRepo.StatusMessage);
                 refrescarLista();
+                nuevoUusario();
             });
 
+        }
+
+        public void nuevoUusario()
+        {
+            UsuarioActual = new Usuario();
         }
 
         public void refrescarLista()
