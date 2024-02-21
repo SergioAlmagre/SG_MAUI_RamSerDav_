@@ -17,7 +17,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.Converter
             }
             else
             {
-                return "Normal";
+                return "No delegado";
             }
         }
 

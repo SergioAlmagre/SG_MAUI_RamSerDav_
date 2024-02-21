@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-              xmlns:conv="clr-namespace:SG_MAUI_RamSerDav_.MVVM.Converter"
-             x:Class="SG_MAUI_RamSerDav_.MVVM.Views.GestionUsuariosView"
+             xmlns:conv="clr-namespace:SG_MAUI_RamSerDav_.MVVM.Converter"
              Title="GestionUsuariosView"
              NavigationPage.HasNavigationBar="False">
+    
     <ContentPage.Resources>
         <conv:ConversorBooleanText x:Key="ConversorBooleanText"/>
     </ContentPage.Resources>
@@ -21,11 +21,12 @@
                 SelectedItem="{Binding UsuarioActual}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame BackgroundColor="Aqua" Margin="0,25,0,0">
+                    <Frame BackgroundColor="LightGrey" Margin="0,25,0,0">
                         <VerticalStackLayout>
                             <Label Text="{Binding Email}"/>
                             <Label Text="{Binding Password}"/>
-                            <CheckBox IsChecked="{Binding UsuarioActual.EsDelegado}"></CheckBox>
+                            <CheckBox IsChecked="{Binding EsDelegado}"
+                                    />
                         </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>

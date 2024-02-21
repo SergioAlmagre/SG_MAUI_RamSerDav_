@@ -83,20 +83,30 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         public void agregarUsuariosFake()
         {
+            if(usuarioRepository.GetItems().Count > 0)
+            {
+                return;
+            }
             List<Usuario> listaUsuariosFake = new List<Usuario>
          {
+            new Usuario
+            {
+                Email = "a",
+                Password = "a",
+                EsDelegado = true
+
+            },
              new Usuario
              {
                  Email = "a@a.com",
                  Password = "1234Abc",
                  EsDelegado = true
-
              },
              new Usuario
              {
                  Email = "b@b.com",
                  Password = "1234Abc",
-                 EsDelegado = false
+                 EsDelegado = true
 
              },
              new Usuario

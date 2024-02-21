@@ -14,7 +14,7 @@ namespace SG_MAUI_RamSerDav_.Auxiliar
 
         }
 
-        public static async Task MensajeInfomativoAsync(string mensaje)
+        public static async Task MensajeInfomativo(string mensaje)
         {
             //App.Current.MainPage.DisplayAlert("Información para el usuario", mensaje, "Aceptar");
             var currentPage = Application.Current.MainPage;
