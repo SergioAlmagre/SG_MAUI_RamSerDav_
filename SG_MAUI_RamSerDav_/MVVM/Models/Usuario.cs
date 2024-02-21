@@ -13,5 +13,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.Models
 
         [SQLite.Column("Password")]
         public string Password { get; set; }
+
+        // Crear Otro campo Extra
     }
 }
