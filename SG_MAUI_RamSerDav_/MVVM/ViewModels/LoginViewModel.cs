@@ -46,6 +46,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         public LoginViewModel()
         {
+            agregarUsuariosFake();
             ClearCommand = new Command(ClearFields);
             AcceptCommand = new Command(AttemptLogin, CanAttemptLogin);
         }
@@ -123,25 +124,29 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 new Usuario
                 {
                     Email = "d@d.com",
-                    Password = "1234",
+                    Password = "1234Abc",
                     EsDelegado = false
 
                 },
                 new Usuario
                 {
                     Email = "e@e.com",
-                    Password = "1234",
+                    Password = "1234Abc",
                     EsDelegado = false
 
                 },
                 new Usuario
                 {
                     Email = "f@f.com",
-                    Password = "1234",
+                    Password = "1234Abc",
                     EsDelegado = false
                 },
             };
-            //App.UsuarioRepo.SaveItemCascade(listaUsuariosFake);
+            foreach (Usuario usu in listaUsuariosFake)
+            {
+                App.UsuarioRepo.SaveItemCascade(usu);
+            }
+
         }// Fin de agregarUsuariosFake
     }
 
