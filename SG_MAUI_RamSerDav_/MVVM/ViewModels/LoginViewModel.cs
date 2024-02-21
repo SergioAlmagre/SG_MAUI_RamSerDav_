@@ -35,7 +35,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         // Constructor de la clase
         public LoginViewModel()
         {
-            agregarUsuariosFake();
+            //agregarUsuariosFake();
             limpiarCommand = new Command(ClearFields); // Asigna el metodo ClearFields al comando ClearCommand
             aceptarCommand = new Command(inicioSesion, puedeHacerLogin); // Asigna los métodos AttemptLogin y CanAttemptLogin al comando AcceptCommand
         }

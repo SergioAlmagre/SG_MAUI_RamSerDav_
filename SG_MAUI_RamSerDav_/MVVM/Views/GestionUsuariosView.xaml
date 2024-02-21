@@ -16,25 +16,21 @@
             <Button Text="Guardar" Command="{Binding GuardarCommand}"/>
             <Button Text="Borrar" Command="{Binding EliminarCommand}"/>
         </VerticalStackLayout>
-        <CollectionView Grid.Row="1" ItemsSource="{Binding ListaUsuarios}" 
-                    SelectionMode="Single" 
-                    SelectedItem="{Binding UsuarioActual}">
+        <CollectionView Grid.Row="1" ItemsSource="{Binding ListaUsuarios}" EmptyView="{StaticResource  vistaSinResultados}"  
+                SelectionMode="Single"  
+                SelectedItem="{Binding UsuarioActual}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-
                     <Frame BackgroundColor="Aqua" Margin="0,25,0,0">
                         <VerticalStackLayout>
-                         
-                                <Label Text="{Binding Email}"/>
-                                <Label Text="{Binding Password}"/>
-                            <CheckBox IsChecked="{Binding UsuarioActual.EsDelegado}"></CheckBox> 
-                    </VerticalStackLayout>
+                            <Label Text="{Binding Email}"/>
+                            <Label Text="{Binding Password}"/>
+                            <CheckBox IsChecked="{Binding UsuarioActual.EsDelegado}"></CheckBox>
+                        </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <!--<Label x:Name="sinUsuarios" Text="No hay usuarios en la BD." IsVisible="False" /> //Esto esta comentado de momento hasta avanzar mas
-        <Image x:Name="imagenSinUsuarios" Source="imagen_sin_usuarios.png" IsVisible="False" />-->
     </Grid>
 
 </ContentPage>
