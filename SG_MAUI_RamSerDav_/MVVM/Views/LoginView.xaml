@@ -7,9 +7,9 @@
         <!-- Imagen, Elige una imagen -->
         <Image Source="algooo.jpg" Aspect="AspectFit" HeightRequest="200" />
 
-        <!-- Logica de Texto -->
-        <Entry Placeholder="Username" Text="{Binding Username}" />
-        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
+        <!-- Lógica de Texto -->
+        <Entry Placeholder="Username" Text="{Binding usuarioActual.Email}" />
+        <Entry Placeholder="Password" IsPassword="True" Text="{Binding usuarioActual.Password}" />
 
         <!-- Botones -->
         <Button Text="Aceptar" Command="{Binding aceptarCommand}" IsEnabled="{Binding estaHabilitado}" />

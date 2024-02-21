@@ -23,8 +23,5 @@ namespace SG_MAUI_RamSerDav_.MVVM.Constants
                 return Path.Combine(FileSystem.AppDataDirectory, DBFileName);
             }
         }
-
-
-
     }
 }
