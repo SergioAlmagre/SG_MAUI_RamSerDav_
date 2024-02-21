@@ -12,7 +12,7 @@ namespace SG_MAUI_RamSerDav_
         {
             UsuarioRepo = usuRepo;
             InitializeComponent();
-            MainPage = new NavigationPage(new LoginView()) ;
+            MainPage = new NavigationPage(new GestionUsuariosView()) ;
         }
     }
 }

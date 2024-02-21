@@ -9,7 +9,7 @@
         <VerticalStackLayout>
             <Entry Placeholder="Email" Text="{Binding UsuarioActual.Email}"/>
             <Entry Placeholder="Password" Text="{Binding UsuarioActual.Password}"/>
-            <Entry Placeholder="EsDelegado" Text="{}"/>
+            <!--<Entry Placeholder="EsDelegado" Text="{}"/>-->
             <Button Text="Guardar" Command="{Binding GuardarCommand}"/>
             <Button Text="Borrar" Command="{Binding EliminarCommand}"/>
         </VerticalStackLayout>
@@ -18,16 +18,16 @@
                     SelectedItem="{Binding UsuarioActual}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Padding="5">
-                        <StackLayout>
+                    
+                        <Grid ColumnDefinitions="*,*">
                             <Label Text="{Binding Email}"/>
                             <Label Text="{Binding Password}"/>
-                        </StackLayout>
-                    </Frame>
+                        </Grid>
+          
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <!--<Label x:Name="sinUsuarios" Text="No hay usuarios en la BD." IsVisible="False" /> //Esto esta comentado de momento hasta avanzar mas en el desarrollo
+        <!--<Label x:Name="sinUsuarios" Text="No hay usuarios en la BD." IsVisible="False" /> //Esto esta comentado de momento hasta avanzar mas
         <Image x:Name="imagenSinUsuarios" Source="imagen_sin_usuarios.png" IsVisible="False" />-->
     </Grid>
 
