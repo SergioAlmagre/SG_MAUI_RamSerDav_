@@ -2,18 +2,19 @@
 using System;
 using System.IO;
 
-// Objeto Usuario
+// Objeto Usuario / Alumno
 namespace SG_MAUI_RamSerDav_.MVVM.Models
 {
     [SQLite.Table("Usuarios")]
     public class Usuario : TableData
     {
-        [SQLite.Column("Login")]
-        public string Login { get; set; }
+        [SQLite.Column("Email")]
+        public string Email { get; set; }
 
         [SQLite.Column("Password")]
         public string Password { get; set; }
 
-        // Crear Otro campo Extra
+        [SQLite.Column("EsDelegado")]
+        public bool EsDelegado { get; set; }
     }
 }
