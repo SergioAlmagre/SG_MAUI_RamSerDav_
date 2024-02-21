@@ -9,6 +9,7 @@ using SG_MAUI_RamSerDav_.MVVM.Models;
 using PropertyChanged;
 using SG_MAUI_RamSerDav_.MVVM.Views;
 using SG_MAUI_RamSerDav_.MVVM.Abstractions;
+using SG_MAUI_RamSerDav_.Auxiliar;
 
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
@@ -35,7 +36,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         // Constructor de la clase
         public LoginViewModel()
         {
-            //agregarUsuariosFake();
+            agregarUsuariosFake();
             limpiarCommand = new Command(ClearFields); // Asigna el metodo ClearFields al comando ClearCommand
             aceptarCommand = new Command(inicioSesion, puedeHacerLogin); // Asigna los métodos AttemptLogin y CanAttemptLogin al comando AcceptCommand
         }
@@ -55,8 +56,11 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         // Evento de iniciar sesión
         private async void inicioSesion()
         {
+            // Encriptar la contraseña ingresada
+            string passwordEncriptada = Herramientas.encriptarContraseña(usuarioActual.Password);
+
             // Verificar si el usuario existe en la base de datos
-            var usuarioObetenido = usuarioRepository.GetItem(u => u.Email == usuarioActual.Email && u.Password == usuarioActual.Password);
+            var usuarioObetenido = usuarioRepository.GetItem(u => u.Email == usuarioActual.Email && u.Password == passwordEncriptada);
 
             if (usuarioObetenido != null)
             {
@@ -72,7 +76,8 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                     var usuario = new Usuario
                     {
                         Email = usuarioActual.Email,
-                        Password = usuarioActual.Password,
+                        // Encriptar la contraseña antes de guardarla
+                        Password = Herramientas.encriptarContraseña(usuarioActual.Password),
                         EsDelegado = false // Por defecto, el campo EsDelegado es falso
                     };
                     usuarioRepository.SaveItem(usuario); // Guarda el nuevo registro de usuario en la bbdd
