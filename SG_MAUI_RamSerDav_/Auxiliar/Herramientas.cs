@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
+namespace SG_MAUI_RamSerDav_.Auxiliar
 {
     class Herramientas
     {
@@ -19,7 +19,6 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             //App.Current.MainPage.DisplayAlert("Información para el usuario", mensaje, "Aceptar");
             var currentPage = Application.Current.MainPage;
             await currentPage.DisplayAlert("Información", mensaje, "OK");
-
         }
 
 

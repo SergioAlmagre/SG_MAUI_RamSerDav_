@@ -17,7 +17,6 @@ namespace SG_MAUI_RamSerDav_.MVVM.Selectors
     {
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-
             var usu = (Usuario)item;
             if (usu.EsDelegado)
             {

@@ -12,7 +12,7 @@
         <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
 
         <!-- Botones -->
-        <Button Text="Aceptar" Command="{Binding AcceptCommand}" IsEnabled="{Binding AcceptEnabled}" />
-        <Button Text="Limpiar" Command="{Binding ClearCommand}" />
+        <Button Text="Aceptar" Command="{Binding aceptarCommand}" IsEnabled="{Binding estaHabilitado}" />
+        <Button Text="Limpiar" Command="{Binding limpiarCommand}" />
     </StackLayout>
 </ContentPage>
