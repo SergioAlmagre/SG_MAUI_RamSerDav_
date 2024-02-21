@@ -9,5 +9,17 @@ namespace SG_MAUI_RamSerDav_.MVVM.Views
             InitializeComponent();
             BindingContext = new LoginViewModel();
         }
+
+        private void CambiarTema_Toggled(object sender, EventArgs e)
+        {
+            if (Application.Current.UserAppTheme == AppTheme.Dark)
+            {
+                Application.Current.UserAppTheme = AppTheme.Light;
+            }
+            else
+            {
+                Application.Current.UserAppTheme = AppTheme.Dark;
+            }
+        }
     }
 }
