@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:conv="clr-namespace:SG_MAUI_RamSerDav_.MVVM.Converter"
              x:Class="SG_MAUI_RamSerDav_.MVVM.Views.GestionUsuariosView"
              Title="GestionUsuariosView"
              NavigationPage.HasNavigationBar="False">
-
-    <Grid RowDefinitions=".3*,.7*">
+    <ContentPage.Resources>
+        <conv:ConversorBooleanText x:Key="ConversorBooleanText"/>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="*,*">
         <VerticalStackLayout>
             <Entry Placeholder="Email" Text="{Binding UsuarioActual.Email}"/>
             <Entry Placeholder="Password" Text="{Binding UsuarioActual.Password}"/>
-            <!--<Entry Placeholder="EsDelegado" Text="{}"/>-->
+            <Label  Text="{Binding UsuarioActual.EsDelegado,Converter={StaticResource ConversorBooleanText}}"/>
             <Button Text="Guardar" Command="{Binding GuardarCommand}"/>
             <Button Text="Borrar" Command="{Binding EliminarCommand}"/>
         </VerticalStackLayout>
@@ -18,12 +21,15 @@
                     SelectedItem="{Binding UsuarioActual}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    
-                        <Grid ColumnDefinitions="*,*">
-                            <Label Text="{Binding Email}"/>
-                            <Label Text="{Binding Password}"/>
-                        </Grid>
-          
+
+                    <Frame BackgroundColor="Aqua" Margin="0,25,0,0">
+                        <VerticalStackLayout>
+                         
+                                <Label Text="{Binding Email}"/>
+                                <Label Text="{Binding Password}"/>
+                            <CheckBox IsChecked="{Binding UsuarioActual.EsDelegado}"></CheckBox> 
+                    </VerticalStackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

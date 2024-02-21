@@ -35,6 +35,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         // Constructor de la clase
         public LoginViewModel()
         {
+            agregarUsuariosFake();
             limpiarCommand = new Command(ClearFields); // Asigna el metodo ClearFields al comando ClearCommand
             aceptarCommand = new Command(inicioSesion, puedeHacerLogin); // Asigna los métodos AttemptLogin y CanAttemptLogin al comando AcceptCommand
         }
@@ -60,7 +61,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             if (usuarioObetenido != null)
             {
                 // Si el usuario existe, navega a la pagina de gestión de usuarios
-                await navigation.PushAsync(new GestionUsuariosView());
+                App.Current.MainPage.Navigation.PushAsync(new GestionUsuariosView());
             }
             else
             {
@@ -75,9 +76,62 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                         EsDelegado = false // Por defecto, el campo EsDelegado es falso
                     };
                     usuarioRepository.SaveItem(usuario); // Guarda el nuevo registro de usuario en la bbdd
-                    await navigation.PushAsync(new GestionUsuariosView());
+                    App.Current.MainPage.Navigation.PushAsync(new GestionUsuariosView());
                 }
             }
+        }
+
+        public void agregarUsuariosFake()
+        {
+            List<Usuario> listaUsuariosFake = new List<Usuario>
+         {
+             new Usuario
+             {
+                 Email = "a@a.com",
+                 Password = "1234Abc",
+                 EsDelegado = true
+
+             },
+             new Usuario
+             {
+                 Email = "b@b.com",
+                 Password = "1234Abc",
+                 EsDelegado = false
+
+             },
+             new Usuario
+             {
+                 Email = "c@c.com",
+                 Password = "1234Abc",
+                 EsDelegado = false
+
+             },
+             new Usuario
+             {
+                 Email = "d@d.com",
+                 Password = "1234Abc",
+                 EsDelegado = false
+
+             },
+             new Usuario
+             {
+                 Email = "e@e.com",
+                 Password = "1234Abc",
+                 EsDelegado = false
+
+             },
+             new Usuario
+             {
+                 Email = "f@f.com",
+                 Password = "1234Abc",
+                 EsDelegado = false
+             },
+         };
+            foreach (Usuario usu in listaUsuariosFake)
+            {
+                App.UsuarioRepo.SaveItemCascade(usu);
+            }
+
         }
     }
 }
