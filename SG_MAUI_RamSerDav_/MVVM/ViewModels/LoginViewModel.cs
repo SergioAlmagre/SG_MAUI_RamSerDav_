@@ -6,96 +6,76 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.ComponentModel;
 using SG_MAUI_RamSerDav_.MVVM.Models;
+using PropertyChanged;
+using SG_MAUI_RamSerDav_.MVVM.Views;
+using SG_MAUI_RamSerDav_.MVVM.Abstractions;
 
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
-    public class LoginViewModel : INotifyPropertyChanged
+    [AddINotifyPropertyChangedInterface]
+    public class LoginViewModel
     {
-        private string username;
-        private string password;
+        public INavigation navigation; // Interfaz de navegacion para cambiar de página
+        public IBaseRepository<Usuario> usuarioRepository; // Repositorio Usuario
 
-        public string Username
-        {
-            get => username;
-            set
-            {
-                if (username != value)
-                {
-                    username = value;
-                    OnPropertyChanged(nameof(Username));
-                }
-            }
-        }
+        public Usuario usuarioActual { get; set; } = new Usuario();
+        public ICommand limpiarCommand { get; set; } // Evento limpiar los campos
+        public ICommand aceptarCommand { get; set; } // Evento iniciar sesión
+        public bool estaHabilitado { get; set; } = false; // Indica si el boton de aceptar esta habilitado
 
-        public string Password
-        {
-            get => password;
-            set
-            {
-                if (password != value)
-                {
-                    password = value;
-                    OnPropertyChanged(nameof(Password));
-                }
-            }
-        }
-
-        public ICommand ClearCommand { get; }
-        public ICommand AcceptCommand { get; }
-        public bool AcceptEnabled { get; set; }
-
+        // Constructor de la clase
         public LoginViewModel()
         {
-            agregarUsuariosFake();
-            ClearCommand = new Command(ClearFields);
-            AcceptCommand = new Command(AttemptLogin, CanAttemptLogin);
+            limpiarCommand = new Command(ClearFields); // Asigna el metodo ClearFields al comando ClearCommand
+            aceptarCommand = new Command(inicioSesion, puedeHacerLogin); // Asigna los métodos AttemptLogin y CanAttemptLogin al comando AcceptCommand
         }
 
-        private bool CanAttemptLogin()
+
+        // Metodo que indica si se puede intentar iniciar sesion
+        private bool puedeHacerLogin()
         {
-            return !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
+            return !string.IsNullOrWhiteSpace(usuarioActual.Email) && !string.IsNullOrWhiteSpace(usuarioActual.Password);
         }
 
+
+        // Evento para limpiar los campos
         private void ClearFields()
         {
-            Username = string.Empty;
-            Password = string.Empty;
+            usuarioActual = new Usuario();
         }
 
-        private void AttemptLogin()
+        // Evento de iniciar sesión
+        private async void inicioSesion()
         {
-            // Lógica de verificación de sesión
-            if (IsUserValid(Username, Password))
+            // Verificar si el usuario existe en la base de datos
+            var usuarioObetenido = usuarioRepository.GetItem(u => u.Email == usuarioActual.Email && u.Password == usuarioActual.Password);
+
+
+            if (usuarioObetenido != null)
             {
-                // Iniciar sesión con la cuenta encontrada en sqlite
-                // Navigation.PushAsync(new MainPage());
+                // Si el usuario existe, navega a la pagina de gestión de usuarios
+                await navigation.PushAsync(new GestionUsuariosView());
             }
             else
             {
-                // Mostrar mensaje de error y limpiar campos
-                // En nuestro caso, debería ser crear un nuevo registro
-                ClearFields();
+
+                bool res = await Auxiliar.Herramientas.MensajeConfirmacion("info", "El usuario no existe, ¿desea registrarse?");
+                if(res == true)
+                {
+                     // Si el usuario no existe, crea un nuevo registro de usuario
+                    var usuario = new Usuario
+                    {
+                    Email = usuarioActual.Email,
+                    Password = usuarioActual.Password,
+                    EsDelegado = false // Por defecto, el campo EsDelegado es falso
+                    };
+                    usuarioRepository.SaveItem(usuario); // Guarda el nuevo registro de usuario en la bbdd
+                    await navigation.PushAsync(new GestionUsuariosView());
+                    
+                }
+
             }
-            // Pasaremos de página con un registro, ya sea para bien o para mal
         }
-
-        // Validador, busca en sqlite si se encuentra el registro
-        private bool IsUserValid(string username, string password)
-        {
-            // Lógica para verificar el usuario en la base de datos
-            return true;
-        }
-
-        // Si la propiedad intenta cambiar...
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            // Verificar si hay suscriptores registrados para el evento PropertyChanged. Siempre que no sea null, se notifica el cambio
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        // Si el evento cambia, se notifica
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public void agregarUsuariosFake()
         {
             List<Usuario> listaUsuariosFake = new List<Usuario>
@@ -148,9 +128,17 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             }
 
         }// Fin de agregarUsuariosFake
+
+
     }
 
-   
+
+
+
+        
 }
+
+   
+
 
 
