@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
-    class Mensajes
+    class Herramientas
     {
-        public Mensajes()
+        public Herramientas()
         {
 
         }
@@ -26,6 +26,32 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         {
             var currentPage = Application.Current.MainPage;
             return await currentPage.DisplayAlert(titulo, mensaje, "Aceptar", "Cancelar");
+        }
+
+        public static string encriptarContraseña(string password)
+        {
+            char[] encryptedChars = new char[password.Length];
+
+            for (int i = 0; i < password.Length; i++)
+            {
+                
+                encryptedChars[i] = (char)(password[i] + 2);
+            }
+
+            return new string(encryptedChars);
+
+        }
+
+        public static string desencriptarContraseña(string password)
+        {
+            char[] decryptedChars = new char[password.Length];
+
+            for (int i = 0; i < password.Length; i++)
+            {
+                decryptedChars[i] = (char)(password[i] - 2);
+            }
+
+            return new string(decryptedChars);
         }
 
     }
