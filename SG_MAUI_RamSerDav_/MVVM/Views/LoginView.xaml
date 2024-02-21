@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:SG_MAUI_RamSerDav_.MVVM.Converter"
              x:Class="SG_MAUI_RamSerDav_.MVVM.Views.LoginView"
              Title="LoginView">
+    <ContentPage.Resources>
+        <conv:ConversorTema x:Key="ConversorTema"/>
+    </ContentPage.Resources>
     <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20">
         <!-- Imagen, Elige una imagen -->
         <Image Source="algooo.jpg" Aspect="AspectFit" HeightRequest="200" />
@@ -14,5 +18,11 @@
         <!-- Botones -->
         <Button Text="Aceptar" Command="{Binding aceptarCommand}" IsEnabled="{Binding estaHabilitado}" />
         <Button Text="Limpiar" Command="{Binding limpiarCommand}" />
+        <Switch Toggled="CambiarTema_Toggled" VerticalOptions="Center" 
+            IsToggled="{Binding TemaOscuroActivado}"/>
+        <Label Text="{Binding TemaOscuroActivado, 
+              Converter={StaticResource ConversorTema}}" 
+            VerticalOptions="Center" />
     </StackLayout>
+    
 </ContentPage>

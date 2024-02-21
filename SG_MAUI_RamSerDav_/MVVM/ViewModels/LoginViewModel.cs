@@ -20,6 +20,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         public IBaseRepository<Usuario> usuarioRepository => App.UsuarioRepo; // Obtener el repositorio de usuarios desde App
 
         public Usuario _usuarioActual = new Usuario();
+        public bool TemaOscuroActivado { get; set; }
         public Usuario usuarioActual
         {
             get => _usuarioActual;
@@ -28,6 +29,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 _usuarioActual = value;
                 ((Command)aceptarCommand).ChangeCanExecute();
             }
+            
         }
 
         public ICommand limpiarCommand { get; set; } // Evento limpiar los campos
@@ -39,6 +41,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             agregarUsuariosFake();
             limpiarCommand = new Command(ClearFields); // Asigna el metodo ClearFields al comando ClearCommand
             aceptarCommand = new Command(inicioSesion, puedeHacerLogin); // Asigna los métodos AttemptLogin y CanAttemptLogin al comando AcceptCommand
+            TemaOscuroActivado = false;
         }
 
         // Metodo que indica si se puede intentar iniciar sesion
