@@ -62,32 +62,32 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         private void AttemptLogin()
         {
-            // Logica de verificado de Sesion
+            // Lógica de verificación de sesión
             if (IsUserValid(Username, Password))
             {
-                // Inicio de sesion con la cuenta que se ha encontrado en sqlite
+                // Iniciar sesión con la cuenta encontrada en sqlite
                 // Navigation.PushAsync(new MainPage());
             }
             else
             {
                 // Mostrar mensaje de error y limpiar campos
-                // En nuestro caso deberia ser, crea un nuevo Registro
+                // En nuestro caso, debería ser crear un nuevo registro
                 ClearFields();
             }
-            // Para bien o para mal pasaremos de pagina con un registro 
+            // Pasaremos de página con un registro, ya sea para bien o para mal
         }
 
         // Validador, busca en sqlite si se encuentra el registro
         private bool IsUserValid(string username, string password)
         {
-            // Lógica de verificación de usuario en la base de datos
+            // Lógica para verificar el usuario en la base de datos
             return true;
         }
 
         // Si la propiedad intenta cambiar...
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            // Verifica si hay suscriptores registrados para el evento PropertyChanged. Siempre que no sea null, se notifica cambio
+            // Verificar si hay suscriptores registrados para el evento PropertyChanged. Siempre que no sea null, se notifica el cambio
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
@@ -95,4 +95,5 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }
+
 
