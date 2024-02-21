@@ -9,7 +9,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.Constants
 {
     public static class Constantes
     {
-        private const string DBFileName = "sqlite.db3";
+        private const string DBFileName = "ramserdav.db3";
 
         public const SQLiteOpenFlags Flags =
             SQLiteOpenFlags.ReadWrite |

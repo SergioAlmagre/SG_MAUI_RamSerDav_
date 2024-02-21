@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using SG_MAUI_RamSerDav_.MVVM.Models;
+using SG_MAUI_RamSerDav_.Repositories;
 
 namespace SG_MAUI_RamSerDav_
 {
@@ -18,7 +20,7 @@ namespace SG_MAUI_RamSerDav_
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
+            builder.Services.AddSingleton<BaseRepository<Usuario>>();
             return builder.Build();
         }
     }

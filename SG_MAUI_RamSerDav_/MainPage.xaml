@@ -4,15 +4,7 @@
              x:Class="SG_MAUI_RamSerDav_.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-            
-
-          
-
-        </VerticalStackLayout>
+        
     </ScrollView>
 
 </ContentPage>

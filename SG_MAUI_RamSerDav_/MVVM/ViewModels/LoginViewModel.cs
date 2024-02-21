@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.ComponentModel;
+using SG_MAUI_RamSerDav_.MVVM.Models;
 
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
@@ -45,6 +46,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         public LoginViewModel()
         {
+            agregarUsuariosFake();
             ClearCommand = new Command(ClearFields);
             AcceptCommand = new Command(AttemptLogin, CanAttemptLogin);
         }
@@ -93,7 +95,62 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         // Si el evento cambia, se notifica
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void agregarUsuariosFake()
+        {
+            List<Usuario> listaUsuariosFake = new List<Usuario>
+            {
+                new Usuario
+                {
+                    Email = "a@a.com",
+                    Password = "1234Abc",
+                    EsDelegado = true
+
+                },
+                new Usuario
+                {
+                    Email = "b@b.com",
+                    Password = "1234Abc",
+                    EsDelegado = false
+
+                },
+                new Usuario
+                {
+                    Email = "c@c.com",
+                    Password = "1234Abc",
+                    EsDelegado = false
+
+                },
+                new Usuario
+                {
+                    Email = "d@d.com",
+                    Password = "1234Abc",
+                    EsDelegado = false
+
+                },
+                new Usuario
+                {
+                    Email = "e@e.com",
+                    Password = "1234Abc",
+                    EsDelegado = false
+
+                },
+                new Usuario
+                {
+                    Email = "f@f.com",
+                    Password = "1234Abc",
+                    EsDelegado = false
+                },
+            };
+            foreach (Usuario usu in listaUsuariosFake)
+            {
+                App.UsuarioRepo.SaveItemCascade(usu);
+            }
+
+        }// Fin de agregarUsuariosFake
     }
+
+   
 }
 
 
