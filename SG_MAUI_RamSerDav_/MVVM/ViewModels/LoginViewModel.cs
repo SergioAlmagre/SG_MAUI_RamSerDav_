@@ -21,7 +21,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         public Usuario usuarioActual { get; set; } = new Usuario();
         public ICommand limpiarCommand { get; set; } // Evento limpiar los campos
         public ICommand aceptarCommand { get; set; } // Evento iniciar sesión
-        public bool estaHabilitado { get; set; } = false; // Indica si el boton de aceptar esta habilitado
+        public bool estaHabilitado { get; set; }  // Indica si el boton de aceptar esta habilitado
 
         // Constructor de la clase
         public LoginViewModel()
