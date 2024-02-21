@@ -4,15 +4,15 @@
              x:Class="SG_MAUI_RamSerDav_.MVVM.Views.LoginView"
              Title="LoginView">
     <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20">
-        <!-- Images Choose Image -->
+        <!-- Imagen, Elige una imagen -->
         <Image Source="algooo.jpg" Aspect="AspectFit" HeightRequest="200" />
 
-        <!-- Text Logic -->
+        <!-- Logica de Texto -->
         <Entry Placeholder="Username" Text="{Binding Username}" />
         <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
 
-        <!-- Buttons -->
-        <Button Text="Accept" Command="{Binding AcceptCommand}" IsEnabled="{Binding AcceptEnabled}" />
-        <Button Text="Clear" Command="{Binding ClearCommand}" />
+        <!-- Botones -->
+        <Button Text="Aceptar" Command="{Binding AcceptCommand}" IsEnabled="{Binding AcceptEnabled}" />
+        <Button Text="Limpiar" Command="{Binding ClearCommand}" />
     </StackLayout>
 </ContentPage>
