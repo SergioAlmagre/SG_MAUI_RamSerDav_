@@ -7,7 +7,6 @@ namespace SG_MAUI_RamSerDav_
         public App()
         {
             InitializeComponent();
-
             MainPage = new NavigationPage(new LoginView()) ;
         }
     }
