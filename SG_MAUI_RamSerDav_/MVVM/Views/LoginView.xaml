@@ -7,22 +7,37 @@
     <ContentPage.Resources>
         <conv:ConversorTema x:Key="ConversorTema"/>
     </ContentPage.Resources>
-    <VerticalStackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20">
-        <!-- Imagen -->
-        <Image Source="algooo.jpg" Aspect="AspectFit" HeightRequest="200" />
 
-        <!-- Logica de Texto -->
-        <Entry Placeholder="Username" Text="{Binding Username}" />
-        <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
+    <ContentPage.Content>
+        <VerticalStackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20">
 
-        <!-- Botones -->
-        <Button Text="Aceptar" Command="{Binding aceptarCommand}" IsEnabled="{Binding IsAceptarEnabled}" />
-        <Button Text="Limpiar" Command="{Binding limpiarCommand}" />
+            <!-- Color Con Degradado-->
+            <StackLayout.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="LightBlue" Offset="0" />
+                    <GradientStop Color="DarkBlue" Offset="1" />
+                </LinearGradientBrush>
+            </StackLayout.Background>
 
-        <Switch Toggled="CambiarTema_Toggled" VerticalOptions="Center" 
-            IsToggled="{Binding TemaOscuroActivado}"/>
-        <Label Text="{Binding TemaOscuroActivado, 
-              Converter={StaticResource ConversorTema}}" 
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+            <!-- Imagen -->
+            <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="Start">
+                <Image Source="maui.png" Aspect="AspectFit" HeightRequest="200" />
+            </StackLayout>
+
+            <!-- Logica de Texto -->
+            <Entry Placeholder="Username" Text="{Binding Username}" />
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
+
+            <!-- Botones -->
+            <Button Text="Aceptar" Command="{Binding aceptarCommand}" IsEnabled="{Binding IsAceptarEnabled}" />
+            <Button Text="Limpiar" Command="{Binding limpiarCommand}" />
+
+            <Switch Toggled="CambiarTema_Toggled" VerticalOptions="Center" 
+                    IsToggled="{Binding TemaOscuroActivado}"/>
+            <Label Text="{Binding TemaOscuroActivado, 
+                  Converter={StaticResource ConversorTema}}" 
+                   VerticalOptions="Center" />
+        </VerticalStackLayout>
+    </ContentPage.Content>
 </ContentPage>
+
