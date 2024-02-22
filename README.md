@@ -91,6 +91,8 @@ Para realizarlo se ha necesitado de una cuenta *Github Pro* para usar *Gitkraken
 
 # Contacto
 Master: [Sergio Almagre](https://github.com/SergioAlmagre)
-Colaboradores: [DavidAM00](https://github.com/DavidAM00), [ralmodovarl01](https://github.com/ralmodovarl01)
+Colaboradores: 
+	[DavidAM00](https://github.com/DavidAM00), 
+	[ralmodovarl01](https://github.com/ralmodovarl01)
 			  
 Enlace al proyecto: [SG_MAUI_RamSerDav_](https://github.com/SergioAlmagre/SG_MAUI_RamSerDav_)
