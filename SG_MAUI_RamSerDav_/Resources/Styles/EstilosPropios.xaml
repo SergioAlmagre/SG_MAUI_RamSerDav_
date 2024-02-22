@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-   
 
-    <Color x:Key="color0">#212121</Color>
+
+        <Color x:Key="color0">#212121</Color>
         <Color x:Key="color1">#db3a34</Color>
         <Color x:Key="color2">#ffc857</Color>
         <Color x:Key="color3">#FFD590</Color>
@@ -11,7 +11,7 @@
         <Color x:Key="color5">#28C2D1</Color>
         <Color x:Key="color6">#7BDDEF</Color>
         <Color x:Key="color7">#C3F2F4</Color>
-        
+        <Color x:Key="color8">#FF9DC4</Color>
 
 
         <Style TargetType="Button">
@@ -30,7 +30,7 @@
                         <VisualState x:Name="Disabled">
                             <VisualState.Setters>
                                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource color7}, Dark={StaticResource color0}}" />
-                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color0}, Dark={StaticResource color1}}" />
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color0}, Dark={StaticResource color8}}" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>

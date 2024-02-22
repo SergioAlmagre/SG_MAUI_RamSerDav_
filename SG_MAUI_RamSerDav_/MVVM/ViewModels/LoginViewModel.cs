@@ -19,13 +19,13 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         public ICommand aceptarCommand { get; set; }
         public ICommand ExitCommand { get; set; }
         private string _username;
-        public string Username
+        public string Email
         { 
             get => _username; 
             set 
             {
                 _username = value;
-                OnPropertyChanged(nameof(Username));
+                OnPropertyChanged(nameof(Email));
                 OnPropertyChanged(nameof(IsAceptarEnabled));
             }
         }
@@ -59,32 +59,32 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             });
         }
 
-        public bool IsAceptarEnabled => !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
+        public bool IsAceptarEnabled => !string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password);
 
         private void ClearFields()
         {
-            Username = string.Empty;
+            Email = string.Empty;
             Password = string.Empty;
         }
 
         private async void inicioSesion()
         {
-            if (!Herramientas.validarEmail(Username))
+            if (!Herramientas.validarEmail(Email))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "El correo electrónico no es válido", "Aceptar");
+                Herramientas.MensajeInfomativoAsync("El correo electrónico no es válido");
                 return;
             }
 
             if (!Herramientas.validarPassword(Password))
             {
-                await App.Current.MainPage.DisplayAlert("Error", "La contraseña debe tener al menos 6 caracteres, al menos 1 número y una letra mayúscula", "Aceptar");
+                Herramientas.MensajeInfomativoAsync("La contraseña debe tener al menos 6 caracteres, al menos 1 número y una letra mayúscula");
                 return;
             }
 
             // Encriptar la contraseña ingresada
             string passwordEncriptada = Herramientas.encriptarContraseña(Password);
 
-            var usuarioObtenido = usuarioRepository.GetItem(u => u.Email == Username && u.Password == passwordEncriptada);
+            var usuarioObtenido = usuarioRepository.GetItem(u => u.Email == Email && u.Password == passwordEncriptada);
 
             if (usuarioObtenido != null)
             {
@@ -94,7 +94,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             else
             {
                 // Verificar si el correo electrónico ya está en uso
-                if (Herramientas.CorreoElectronicoEnUso(Username))
+                if (Herramientas.CorreoElectronicoEnUso(Email))
                 {
                     await Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
                     ClearFields();
@@ -106,7 +106,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                     {
                         var usuario = new Usuario
                         {
-                            Email = Username,
+                            Email = Email,
                             Password = Herramientas.encriptarContraseña(Password), // Encriptar la contraseña antes de guardarla
                             EsDelegado = false
                         };
@@ -139,37 +139,37 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 new Usuario
                 {
                     Email = "a@a.com",
-                    Password = "1234Abc",
+                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = true
                 },
                 new Usuario
                 {
                     Email = "b@b.com",
-                    Password = "1234Abc",
+                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = false
                 },
                 new Usuario
                 {
                     Email = "c@c.com",
-                    Password = "1234Abc",
+                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = false
                 },
                 new Usuario
                 {
                     Email = "d@d.com",
-                    Password = "1234Abc",
+                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = false
                 },
                 new Usuario
                 {
                     Email = "e@e.com",
-                    Password = "1234Abc",
+                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = false
                 },
                 new Usuario
                 {
                     Email = "f@f.com",
-                    Password = "1234Abc",
+                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = false
                 },
             };
