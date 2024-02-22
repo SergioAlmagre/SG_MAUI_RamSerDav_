@@ -10,78 +10,61 @@ using PropertyChanged;
 using SG_MAUI_RamSerDav_.MVVM.Views;
 using SG_MAUI_RamSerDav_.MVVM.Abstractions;
 
+
+
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class LoginViewModel
+    public class LoginViewModel : INotifyPropertyChanged
     {
-        public INavigation navigation; // Interfaz de navegacion para cambiar de página
-        public IBaseRepository<Usuario> usuarioRepository => App.UsuarioRepo; // Obtener el repositorio de usuarios desde App
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public Usuario _usuarioActual = new Usuario();
+        public IBaseRepository<Usuario> usuarioRepository => App.UsuarioRepo;
 
-        public Usuario usuarioActual
-        {
-            get => _usuarioActual;
-            set
-            {
-                _usuarioActual = value;
-                ((Command)aceptarCommand).ChangeCanExecute();
-            }
-        }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
-        public ICommand limpiarCommand { get; set; } // Evento limpiar los campos
-        public ICommand aceptarCommand { get; set; } // Evento iniciar sesión
+        public ICommand limpiarCommand { get; set; }
+        public ICommand aceptarCommand { get; set; }
 
-        // Constructor de la clase
         public LoginViewModel()
         {
-            agregarUsuariosFake();
-            limpiarCommand = new Command(ClearFields); // Asigna el metodo ClearFields al comando ClearCommand
-            aceptarCommand = new Command(inicioSesion, puedeHacerLogin); // Asigna los métodos AttemptLogin y CanAttemptLogin al comando AcceptCommand
+            limpiarCommand = new Command(ClearFields);
+            aceptarCommand = new Command(inicioSesion, () => IsAceptarEnabled);
         }
 
-        // Metodo que indica si se puede intentar iniciar sesion
-        private bool puedeHacerLogin()
-        {
-            return !string.IsNullOrWhiteSpace(usuarioActual.Email) && !string.IsNullOrWhiteSpace(usuarioActual.Password);
-        }
+        public bool IsAceptarEnabled => !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
 
-        // Evento para limpiar los campos
         private void ClearFields()
         {
-            usuarioActual = new Usuario();
+            Username = string.Empty;
+            Password = string.Empty;
         }
 
-        // Evento de iniciar sesión
         private async void inicioSesion()
         {
-            // Verificar si el usuario existe en la base de datos
-            var usuarioObetenido = usuarioRepository.GetItem(u => u.Email == usuarioActual.Email && u.Password == usuarioActual.Password);
+            var usuarioObtenido = usuarioRepository.GetItem(u => u.Email == Username && u.Password == Password);
 
-            if (usuarioObetenido != null)
+            if (usuarioObtenido != null)
             {
-                // Si el usuario existe, navega a la pagina de gestión de usuarios
                 App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
             }
             else
             {
                 bool res = await Auxiliar.Herramientas.MensajeConfirmacion("info", "El usuario no existe, ¿desea registrarse?");
-                if (res == true)
+                if (res)
                 {
-                    // Si el usuario no existe, crea un nuevo registro de usuario
                     var usuario = new Usuario
                     {
-                        Email = usuarioActual.Email,
-                        Password = usuarioActual.Password,
-                        EsDelegado = false // Por defecto, el campo EsDelegado es falso
+                        Email = Username,
+                        Password = Password,
+                        EsDelegado = false
                     };
-                    usuarioRepository.SaveItem(usuario); // Guarda el nuevo registro de usuario en la bbdd
+                    usuarioRepository.SaveItem(usuario);
                     App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
                 }
             }
         }
-
 
         public void agregarUsuariosFake()
         {
@@ -134,9 +117,12 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 App.UsuarioRepo.SaveItemCascade(usu);
             }
 
-        }// Fin de agregarUsuariosFake
+        }
     }
 }
+
+
+
 
 
 
