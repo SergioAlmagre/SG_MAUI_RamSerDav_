@@ -25,6 +25,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         public GestionUsuariosViewModel()
         {
             refrescarLista();
+
             btnIrGestionUsuariosCommand = new Command(() =>
             {
                 App.Current.MainPage.Navigation.PushAsync(new GestionUsuariosView());
@@ -36,12 +37,13 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             });
 
 
+
             EliminarCommand = new Command(async () =>
             {
                 bool confirmacion = await Herramientas.MensajeConfirmacion("info", "Desea eliminar el usuario?");
                 if (confirmacion)
                 {
-                    App.UsuarioRepo.DeleteItem(UsuarioActual);
+                    App.UsuarioRepo.DeleteItem(UsuarioActual); // Eliminar el usuario
                     refrescarLista();
 
                 }
@@ -53,24 +55,42 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 limpiarCampos();
             });
 
+
             GuardarCommand = new Command(() =>
             {
-                if(camposVacios())
+                if(camposVacios()) //Verificar si los campos están vacíos
                 {
                     Herramientas.MensajeInfomativoAsync("Existen campos vacíos o usuario sin seleccionar");
                 }
                 else
                 {
+
+                    if(Herramientas.validarEmail(UsuarioActual.Email) == false) // Verificar si el correo electrónico es válido
+                    {
+                        Herramientas.MensajeInfomativoAsync("El correo electrónico no es válido.");
+                        return;
+                    }
+                    else if(Herramientas.validarPassword(UsuarioActual.Password) == false) // Verificar si la contraseña es válida
+                    {
+                        Herramientas.MensajeInfomativoAsync("La contraseña debe tener al menos 6 caracteres, al menos 1 número y una letra mayúscula");
+                        return;
+                    }
+                    else
+                    {
+                        UsuarioActual.Password = Herramientas.encriptarContraseña(UsuarioActual.Password);
+                    }
+
+
                     // Verificar si el correo electrónico ya está en uso
-                    if (Herramientas.CorreoElectronicoEnUso(UsuarioActual.Email))
+                    if (Herramientas.CorreoElectronicoEnUso(UsuarioActual.Email)) // Verificar si el correo electrónico ya está en uso
                     {
                         Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
                     }
                     else 
                     {
                         Herramientas.MensajeInfomativoAsync("Usuario guardado correctamente");
-                        App.UsuarioRepo.SaveItemCascade(UsuarioActual);
-                        refrescarLista();
+                        App.UsuarioRepo.SaveItemCascade(UsuarioActual); // Guardar el usuario
+                        refrescarLista(); 
                         limpiarCampos();
                     }
                     
