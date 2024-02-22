@@ -1,4 +1,5 @@
-﻿using SG_MAUI_RamSerDav_.MVVM.Views;
+﻿using SG_MAUI_RamSerDav_.Auxiliar;
+using SG_MAUI_RamSerDav_.MVVM.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +26,14 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
 
 
-            btnSalirCommand = new Command(() =>
+            btnSalirCommand = new Command( async () =>
             {
-            
-                //App.Current.MainPage.Navigation.PopAsync();//Vuelve a la página del login
-                App.Current.Quit(); //Cierra la aplicación
+
+                bool confirmacion = await Herramientas.MensajeConfirmacion("info", "Desea salir de la aplicación?");
+                if (confirmacion)
+                {
+                    System.Environment.Exit(0); 
+                }
             });
 
         }
