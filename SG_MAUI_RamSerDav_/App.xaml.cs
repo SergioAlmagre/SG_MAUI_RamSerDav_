@@ -1,4 +1,4 @@
-﻿using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using SG_MAUI_RamSerDav_.MVVM.Models;
 using SG_MAUI_RamSerDav_.MVVM.ViewModels;
 using SG_MAUI_RamSerDav_.MVVM.Views;

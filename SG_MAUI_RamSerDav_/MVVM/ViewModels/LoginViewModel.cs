@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,7 @@ using SG_MAUI_RamSerDav_.MVVM.Models;
 using PropertyChanged;
 using SG_MAUI_RamSerDav_.MVVM.Views;
 using SG_MAUI_RamSerDav_.MVVM.Abstractions;
+using SG_MAUI_RamSerDav_.Auxiliar;
 
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {

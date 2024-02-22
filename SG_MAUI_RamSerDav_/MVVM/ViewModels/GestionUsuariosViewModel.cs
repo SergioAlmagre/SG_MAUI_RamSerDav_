@@ -13,8 +13,8 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class GestionUsuariosViewModel
     {
-       public List<Usuario> ListaUsuarios { get; set; }
-        public Usuario UsuarioActual { get; set; }
+       public List<Usuario> ListaUsuarios { get; set; } = new List<Usuario>();
+        public Usuario UsuarioActual { get; set; } = new Usuario();
         public ICommand btnIrGestionUsuariosCommand { get; set; }
         public ICommand btnSalirCommand { get; set; }
         public ICommand EliminarCommand { get; set; }
@@ -22,6 +22,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         public GestionUsuariosViewModel()
         {
+            refrescarLista();
             btnIrGestionUsuariosCommand = new Command(() =>
             {
                 App.Current.MainPage.Navigation.PushAsync(new GestionUsuariosView());
@@ -44,9 +45,16 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             GuardarCommand = new Command(() =>
             {
                 App.UsuarioRepo.SaveItem(UsuarioActual);
+                Console.WriteLine(App.UsuarioRepo.StatusMessage);
                 refrescarLista();
+                nuevoUsuario();
             });
 
+        }
+
+        public void nuevoUsuario()
+        {
+            UsuarioActual = new Usuario();
         }
 
         public void refrescarLista()
