@@ -9,7 +9,7 @@ using System.Windows.Input;
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
 
-    internal class PPrincipalViewModel
+    public class PPrincipalViewModel
     {
 
     public ICommand btnIrGestionUsuariosCommand { get; set; }

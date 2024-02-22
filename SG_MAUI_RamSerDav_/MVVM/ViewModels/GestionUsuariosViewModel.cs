@@ -16,9 +16,9 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
        public List<Usuario> ListaUsuarios { get; set; } = new List<Usuario>();
         public Usuario UsuarioActual { get; set; } = new Usuario();
         public ICommand btnIrGestionUsuariosCommand { get; set; }
-        public ICommand btnSalirCommand { get; set; }
         public ICommand EliminarCommand { get; set; }
         public ICommand GuardarCommand { get; set; }
+        public ICommand btnVolverCommand { get; set; }
 
         public GestionUsuariosViewModel()
         {
@@ -28,13 +28,11 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 App.Current.MainPage.Navigation.PushAsync(new GestionUsuariosView());
             });
 
-
-
-            btnSalirCommand = new Command(() =>
+            btnVolverCommand = new Command(() =>
             {
-                //Vuelve a la página del login pero habría que pensar si se cierra la aplicación o no
                 App.Current.MainPage.Navigation.PopAsync();
             });
+
 
             EliminarCommand = new Command(() =>
             {
@@ -44,15 +42,39 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
             GuardarCommand = new Command(() =>
             {
-                App.UsuarioRepo.SaveItem(UsuarioActual);
-                Console.WriteLine(App.UsuarioRepo.StatusMessage);
-                refrescarLista();
-                nuevoUsuario();
+                if(camposVacios())
+                {
+                    Auxiliar.Herramientas.MensajeInfomativoAsync("Existen campos vacíos o usuario sin seleccionar");
+                }
+                else
+                {
+                    App.UsuarioRepo.SaveItemCascade(UsuarioActual);
+                    refrescarLista();
+                    limpiarCampos();
+                }
+                
             });
 
         }
 
-        public void nuevoUsuario()
+        public bool camposVacios()
+        {
+            if(string.IsNullOrWhiteSpace(UsuarioActual.Email) || string.IsNullOrWhiteSpace(UsuarioActual.Password))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void cambiarCheckbox()
+        {
+            UsuarioActual.EsDelegado = !UsuarioActual.EsDelegado;
+        }
+
+        public void limpiarCampos()
         {
             UsuarioActual = new Usuario();
         }
