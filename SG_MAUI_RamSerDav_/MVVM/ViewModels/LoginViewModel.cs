@@ -96,6 +96,8 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             if (usuarioObtenido != null)
             {
                 App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
+                //Desapilar la página de login
+                App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
             }
             else
             {
@@ -110,6 +112,8 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                     };
                     usuarioRepository.SaveItem(usuario);
                     App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
+
+                    App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
                 }
             }
         }
