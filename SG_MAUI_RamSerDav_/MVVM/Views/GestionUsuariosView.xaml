@@ -10,7 +10,7 @@
         <conv:ConversorBooleanText x:Key="ConversorBooleanText"/>
     </ContentPage.Resources>
     
-    <Grid RowDefinitions="*,*,*">
+    <Grid RowDefinitions="2*,4*,4*">
         <!--BARRA DE NAVEGACION PERSONALIZADA-->
         <Frame Grid.Row="0" BackgroundColor="LightCoral" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
             <Grid>
@@ -26,7 +26,7 @@
         
         <VerticalStackLayout Grid.Row="1">
             <Entry Placeholder="Email" Text="{Binding UsuarioActual.Email}"/>
-            <Entry Placeholder="Password" Text="{Binding UsuarioActual.Password}"/>
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding UsuarioActual.Password}"/>
             <Label  Text="{Binding UsuarioActual.EsDelegado,Converter={StaticResource ConversorBooleanText}}"/>
             <Button Text="Guardar" Command="{Binding GuardarCommand}"/>
             <Button Text="Borrar" Command="{Binding EliminarCommand}"/>
