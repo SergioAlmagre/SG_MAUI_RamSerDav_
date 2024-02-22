@@ -8,24 +8,42 @@
     <ContentPage.Resources>
         <conv:ConversorBooleanText x:Key="ConversorBooleanText"/>
     </ContentPage.Resources>
-    <Grid RowDefinitions="*,*">
-        <VerticalStackLayout>
+    
+    <Grid RowDefinitions="*,*,*">
+        <!--BARRA DE NAVEGACION PERSONALIZADA-->
+        <Frame Grid.Row="0" BackgroundColor="LightCoral" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ImageButton Source="atras.png" WidthRequest="15" HeightRequest="15" HorizontalOptions="Start" Command="{Binding btnVolverCommand}"/>
+                <Label Text="Gestion de usuarios" TextColor="Black" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Grid.Column="1" />
+            </Grid>
+        </Frame>
+        <!--FIN BARRA DE NAVEGACION PERSONALIZADA-->
+        
+        <VerticalStackLayout Grid.Row="1">
             <Entry Placeholder="Email" Text="{Binding UsuarioActual.Email}"/>
             <Entry Placeholder="Password" Text="{Binding UsuarioActual.Password}"/>
             <Label  Text="{Binding UsuarioActual.EsDelegado,Converter={StaticResource ConversorBooleanText}}"/>
             <Button Text="Guardar" Command="{Binding GuardarCommand}"/>
             <Button Text="Borrar" Command="{Binding EliminarCommand}"/>
         </VerticalStackLayout>
-        <CollectionView Grid.Row="1" ItemsSource="{Binding ListaUsuarios}" EmptyView="{StaticResource  vistaSinResultados}"  
+        <CollectionView Grid.Row="2" ItemsSource="{Binding ListaUsuarios}" EmptyView="{StaticResource  vistaSinResultados}"  
                 SelectionMode="Single"  
                 SelectedItem="{Binding UsuarioActual}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame BackgroundColor="Aqua" Margin="0,25,0,0">
+                    <Frame BackgroundColor="LightCoral" Margin="15,15,15,15" HeightRequest="350" WidthRequest="300">
                         <VerticalStackLayout>
                             <Label Text="{Binding Email}"/>
                             <Label Text="{Binding Password}"/>
-                            <CheckBox IsChecked="{Binding UsuarioActual.EsDelegado}"></CheckBox>
+                            <CheckBox IsChecked="{Binding EsDelegado}"
+                                      CheckedChanged="checkBox_CheckedChanged"/>
                         </VerticalStackLayout>
                     </Frame>
                 </DataTemplate>
