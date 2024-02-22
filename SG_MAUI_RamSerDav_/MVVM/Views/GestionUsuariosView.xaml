@@ -28,11 +28,11 @@
         <VerticalStackLayout Grid.Row="1">
             <Entry Placeholder="Email" Text="{Binding UsuarioActual.Email}"/>
             <Entry Placeholder="Password" IsPassword="True" Text="{Binding UsuarioActual.Password}"/>
-<<<<<<< HEAD
+
             <Label  Text="{Binding UsuarioActual.EsDelegado,Converter={StaticResource ConversorBooleanText}}" TextColor="{StaticResource color4}"/>
-=======
+
             <Label  Text="{Binding UsuarioActual.EsDelegado,Converter={StaticResource ConversorBooleanText}}"/>
->>>>>>> 2862a11dcd1b4aec2f116e416eeddbbe09d234a9
+
             <Button Text="Guardar" Command="{Binding GuardarCommand}"/>
             <Button Text="Borrar" Command="{Binding EliminarCommand}"/>
             <Button Text="Limpiar" Command="{Binding LimpiaCommand}" />
