@@ -46,6 +46,9 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         private async void inicioSesion()
         {
+            // Encriptar la contraseña ingresada
+            string passwordEncriptada = Herramientas.encriptarContraseña(Password);
+
             var usuarioObtenido = usuarioRepository.GetItem(u => u.Email == Username && u.Password == Password);
 
             if (usuarioObtenido != null)
@@ -60,7 +63,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                     var usuario = new Usuario
                     {
                         Email = Username,
-                        Password = Password,
+                        Password = Herramientas.encriptarContraseña(Password), // Encriptar la contraseña antes de guardarla
                         EsDelegado = false
                     };
                     usuarioRepository.SaveItem(usuario);
