@@ -97,6 +97,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 if (Herramientas.CorreoElectronicoEnUso(Username))
                 {
                     await Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
+                    ClearFields();
                 }
                 else 
                 {
@@ -112,6 +113,10 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                         usuarioRepository.SaveItem(usuario);
                         App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
                         App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
+                    }
+                    else 
+                    {
+                        ClearFields();
                     }
 
 
