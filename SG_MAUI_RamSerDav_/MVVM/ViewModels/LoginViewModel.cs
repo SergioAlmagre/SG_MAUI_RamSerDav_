@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.ComponentModel;
 using SG_MAUI_RamSerDav_.MVVM.Models;
 using PropertyChanged;
-using SG_MAUI_RamSerDav_.MVVM.Views;
 using SG_MAUI_RamSerDav_.MVVM.Abstractions;
 using SG_MAUI_RamSerDav_.Auxiliar;
+
+using System.Text.RegularExpressions;
 
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
@@ -17,16 +13,30 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
     public class LoginViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         public IBaseRepository<Usuario> usuarioRepository => App.UsuarioRepo;
-
         public bool TemaOscuroActivado { get; set; }
-
-        public string Username { get; set; }
-        public string Password { get; set; }
-
         public ICommand limpiarCommand { get; set; }
         public ICommand aceptarCommand { get; set; }
+        public ICommand ExitCommand { get; set; }
+        private string _username;
+        public string Username
+        { get => _username; 
+            set {
+                _username = value;
+                OnPropertyChanged(nameof(Username));
+                OnPropertyChanged(nameof(IsAceptarEnabled));
+            }
+        }
+
+        private string _password;
+        public string Password
+        { get => _password;
+            set {
+                _password = value;
+                OnPropertyChanged(nameof(Password));
+                OnPropertyChanged(nameof(IsAceptarEnabled));
+            }
+        }
 
         public LoginViewModel()
         {
@@ -34,6 +44,15 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             limpiarCommand = new Command(ClearFields);
             aceptarCommand = new Command(inicioSesion, () => IsAceptarEnabled);
             TemaOscuroActivado = false;
+
+            ExitCommand = new Command(async () =>
+            {
+                bool confirmacion = await Herramientas.MensajeConfirmacion("info", "Desea salir de la aplicación?");
+                if (confirmacion)
+                {
+                    System.Environment.Exit(0); // Se cierra la aplicación
+                }
+            });
         }
 
         public bool IsAceptarEnabled => !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
@@ -46,6 +65,18 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         private async void inicioSesion()
         {
+            if (!Herramientas.validarEmail(Username))
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "El correo electrónico no es válido", "Aceptar");
+                return;
+            }
+
+            if (!Herramientas.validarPassword(Password))
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "La contraseña debe tener al menos 6 caracteres, al menos 1 número y una letra mayúscula", "Aceptar");
+                return;
+            }
+
             // Encriptar la contraseña ingresada
             string passwordEncriptada = Herramientas.encriptarContraseña(Password);
 
@@ -57,7 +88,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             }
             else
             {
-                bool res = await Auxiliar.Herramientas.MensajeConfirmacion("info", "El usuario no existe, ¿desea registrarse?");
+                bool res = await Herramientas.MensajeConfirmacion("info", "El usuario no existe, ¿desea registrarse?");
                 if (res)
                 {
                     var usuario = new Usuario
@@ -72,6 +103,13 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             }
         }
 
+        // Chekeo de datos
+        public void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        // Inserccion de Datos
         public void agregarUsuariosFake()
         {
             List<Usuario> listaUsuariosFake = new List<Usuario>
@@ -124,8 +162,11 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             }
 
         }
+
+        
     }
 }
+
 
 
 
