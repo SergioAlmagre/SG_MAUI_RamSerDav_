@@ -91,7 +91,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             // Encriptar la contraseña ingresada
             string passwordEncriptada = Herramientas.encriptarContraseña(Password);
 
-            var usuarioObtenido = usuarioRepository.GetItem(u => u.Email == Username && u.Password == Password);
+            var usuarioObtenido = usuarioRepository.GetItem(u => u.Email == Username && u.Password == passwordEncriptada);
 
             if (usuarioObtenido != null)
             {
