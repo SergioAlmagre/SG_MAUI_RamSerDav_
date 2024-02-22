@@ -15,11 +15,11 @@ namespace SG_MAUI_RamSerDav_.MVVM.Converter
 
             if ((bool)value)
             {
-                return "Dark";
+                return "Light";
             }
             else
             {
-                return "Light";
+                return "Dark";
             }
         }
 

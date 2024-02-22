@@ -13,7 +13,7 @@ namespace SG_MAUI_RamSerDav_
         {
             UsuarioRepo = usuRepo;
             InitializeComponent();
-            MainPage = new NavigationPage(new GestionUsuariosView()) ;
+            MainPage = new NavigationPage(new LoginView()) ;
             //MainPage.On<Windows>().SetToolbarPlacement(ToolbarPlacement.Bottom); // Ocultar los botones de minimizar y cerrar la aplicación
         }
     }

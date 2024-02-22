@@ -19,9 +19,20 @@
             </StackLayout.Background>
 
             <!-- Imagen -->
-            <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" HorizontalOptions="Start">
-                <Image Source="maui.png" Aspect="AspectFit" HeightRequest="200" />
-            </StackLayout>
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+                <Image Source="maui.png" Aspect="AspectFit" HeightRequest="200" HorizontalOptions="CenterAndExpand"/>
+                
+                <VerticalStackLayout HorizontalOptions="EndAndExpand" VerticalOptions="CenterAndExpand">
+                <Switch Toggled="CambiarTema_Toggled" VerticalOptions="Center" 
+                 IsToggled="{Binding TemaOscuroActivado}"/>
+                
+                <Label Text="{Binding TemaOscuroActivado, 
+                 Converter={StaticResource ConversorTema}}" 
+                 VerticalOptions="Center" />
+                    
+                </VerticalStackLayout>
+                
+            </HorizontalStackLayout>
 
             <!-- Logica de Texto -->
             <Entry Placeholder="Username" Text="{Binding Username}" />
@@ -32,11 +43,7 @@
             <Button Text="Limpiar" Command="{Binding limpiarCommand}" />
             <Button Text="Salir" Command="{Binding ExitCommand}" />
 
-            <Switch Toggled="CambiarTema_Toggled" VerticalOptions="Center" 
-                    IsToggled="{Binding TemaOscuroActivado}"/>
-            <Label Text="{Binding TemaOscuroActivado, 
-                  Converter={StaticResource ConversorTema}}" 
-                   VerticalOptions="Center" />
+            
         </VerticalStackLayout>
     </ContentPage.Content>
 </ContentPage>

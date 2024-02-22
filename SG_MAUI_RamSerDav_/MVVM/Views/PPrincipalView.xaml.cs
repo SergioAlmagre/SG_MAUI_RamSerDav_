@@ -6,6 +6,6 @@ public partial class PPrincipalView : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = new PPrincipalViewModel();
-        NavigationPage.SetHasNavigationBar(this, false);
-    }
+		NavigationPage.SetHasNavigationBar(this, false);
+	}
 }

@@ -5,6 +5,7 @@
              x:Class="SG_MAUI_RamSerDav_.MVVM.Views.GestionUsuariosView"
              Title="GestionUsuariosView"
              NavigationPage.HasNavigationBar="False">
+    
     <ContentPage.Resources>
         <conv:ConversorBooleanText x:Key="ConversorBooleanText"/>
     </ContentPage.Resources>
@@ -30,6 +31,9 @@
             <Button Text="Guardar" Command="{Binding GuardarCommand}"/>
             <Button Text="Borrar" Command="{Binding EliminarCommand}"/>
         </VerticalStackLayout>
+        
+        
+         <!--<CollectionView Grid.Row="2" ItemsSource="{Binding ListaUsuarios}"-->  
         <CollectionView Grid.Row="2" ItemsSource="{Binding ListaUsuarios}" EmptyView="{StaticResource  vistaSinResultados}"  
                 SelectionMode="Single"  
                 SelectedItem="{Binding UsuarioActual}">
