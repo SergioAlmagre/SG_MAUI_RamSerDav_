@@ -103,6 +103,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             }
         }
 
+        // Chekeo de datos
         public void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
