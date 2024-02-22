@@ -20,6 +20,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         public ICommand EliminarCommand { get; set; }
         public ICommand GuardarCommand { get; set; }
         public ICommand btnVolverCommand { get; set; }
+        public ICommand LimpiaCommand { get; set; }
 
         public GestionUsuariosViewModel()
         {
@@ -41,11 +42,16 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 refrescarLista();
             });
 
+            LimpiaCommand = new Command(() =>
+            {
+                limpiarCampos();
+            });
+
             GuardarCommand = new Command(() =>
             {
                 if(camposVacios())
                 {
-                    Auxiliar.Herramientas.MensajeInfomativoAsync("Existen campos vacíos o usuario sin seleccionar");
+                    Herramientas.MensajeInfomativoAsync("Existen campos vacíos o usuario sin seleccionar");
                 }
                 else
                 {

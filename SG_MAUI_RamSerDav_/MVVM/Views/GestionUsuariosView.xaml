@@ -30,6 +30,7 @@
             <Label  Text="{Binding UsuarioActual.EsDelegado,Converter={StaticResource ConversorBooleanText}}"/>
             <Button Text="Guardar" Command="{Binding GuardarCommand}"/>
             <Button Text="Borrar" Command="{Binding EliminarCommand}"/>
+            <Button Text="Limpiar" Command="{Binding LimpiaCommand}" />
         </VerticalStackLayout>
         
         
