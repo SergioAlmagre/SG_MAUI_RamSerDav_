@@ -20,8 +20,10 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         public ICommand ExitCommand { get; set; }
         private string _username;
         public string Username
-        { get => _username; 
-            set {
+        { 
+            get => _username; 
+            set 
+            {
                 _username = value;
                 OnPropertyChanged(nameof(Username));
                 OnPropertyChanged(nameof(IsAceptarEnabled));
@@ -30,8 +32,10 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         private string _password;
         public string Password
-        { get => _password;
-            set {
+        { 
+            get => _password;
+            set 
+            {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
                 OnPropertyChanged(nameof(IsAceptarEnabled));
@@ -77,6 +81,13 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 return;
             }
 
+            // Verificar si el correo electrónico ya está en uso
+            if (Herramientas.CorreoElectronicoEnUso(Username))
+            {
+                await Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
+                return;
+            }
+
             // Encriptar la contraseña ingresada
             string passwordEncriptada = Herramientas.encriptarContraseña(Password);
 
@@ -103,13 +114,13 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             }
         }
 
-        // Chekeo de datos
+        // Chequeo de datos
         public void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        // Inserccion de Datos
+        // Inserción de Datos
         public void agregarUsuariosFake()
         {
             List<Usuario> listaUsuariosFake = new List<Usuario>
@@ -119,35 +130,30 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                     Email = "a@a.com",
                     Password = "1234Abc",
                     EsDelegado = true
-
                 },
                 new Usuario
                 {
                     Email = "b@b.com",
                     Password = "1234Abc",
                     EsDelegado = false
-
                 },
                 new Usuario
                 {
                     Email = "c@c.com",
                     Password = "1234Abc",
                     EsDelegado = false
-
                 },
                 new Usuario
                 {
                     Email = "d@d.com",
                     Password = "1234Abc",
                     EsDelegado = false
-
                 },
                 new Usuario
                 {
                     Email = "e@e.com",
                     Password = "1234Abc",
                     EsDelegado = false
-
                 },
                 new Usuario
                 {
@@ -160,12 +166,10 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             {
                 App.UsuarioRepo.SaveItemCascade(usu);
             }
-
         }
-
-        
     }
 }
+
 
 
 

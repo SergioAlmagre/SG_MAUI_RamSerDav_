@@ -21,6 +21,13 @@ namespace SG_MAUI_RamSerDav_.Auxiliar
             await currentPage.DisplayAlert("Información", mensaje, "OK");
         }
 
+        // Chekea si el correo existe en la bbdd
+        public static bool CorreoElectronicoEnUso(string email)
+        {
+            var usuarioExistente = App.UsuarioRepo.GetItem(u => u.Email == email);
+            return usuarioExistente != null;
+        }
+
 
         public static async Task<bool> MensajeConfirmacion(string titulo, string mensaje)
         {

@@ -1,4 +1,5 @@
 ﻿using PropertyChanged;
+using SG_MAUI_RamSerDav_.Auxiliar;
 using SG_MAUI_RamSerDav_.MVVM.Models;
 using SG_MAUI_RamSerDav_.MVVM.Views;
 using System;
@@ -48,11 +49,19 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 }
                 else
                 {
-                    App.UsuarioRepo.SaveItemCascade(UsuarioActual);
-                    refrescarLista();
-                    limpiarCampos();
+                    // Verificar si el correo electrónico ya está en uso
+                    if (Herramientas.CorreoElectronicoEnUso(UsuarioActual.Email))
+                    {
+                        Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
+                    }
+                    else 
+                    {
+                        App.UsuarioRepo.SaveItemCascade(UsuarioActual);
+                        refrescarLista();
+                        limpiarCampos();
+                    }
+                    
                 }
-                
             });
 
         }
