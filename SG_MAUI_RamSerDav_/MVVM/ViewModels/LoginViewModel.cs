@@ -81,13 +81,6 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 return;
             }
 
-            // Verificar si el correo electrónico ya está en uso
-            if (Herramientas.CorreoElectronicoEnUso(Username))
-            {
-                await Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
-                return;
-            }
-
             // Encriptar la contraseña ingresada
             string passwordEncriptada = Herramientas.encriptarContraseña(Password);
 
@@ -96,25 +89,34 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             if (usuarioObtenido != null)
             {
                 App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
-                //Desapilar la página de login
                 App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
             }
             else
             {
-                bool res = await Herramientas.MensajeConfirmacion("info", "El usuario no existe, ¿desea registrarse?");
-                if (res)
+                // Verificar si el correo electrónico ya está en uso
+                if (Herramientas.CorreoElectronicoEnUso(Username))
                 {
-                    var usuario = new Usuario
-                    {
-                        Email = Username,
-                        Password = Herramientas.encriptarContraseña(Password), // Encriptar la contraseña antes de guardarla
-                        EsDelegado = false
-                    };
-                    usuarioRepository.SaveItem(usuario);
-                    App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
-
-                    App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
+                    await Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
                 }
+                else 
+                {
+                    bool res = await Herramientas.MensajeConfirmacion("info", "El usuario no existe, ¿desea registrarse?");
+                    if (res)
+                    {
+                        var usuario = new Usuario
+                        {
+                            Email = Username,
+                            Password = Herramientas.encriptarContraseña(Password), // Encriptar la contraseña antes de guardarla
+                            EsDelegado = false
+                        };
+                        usuarioRepository.SaveItem(usuario);
+                        App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
+                        App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
+                    }
+
+
+                }
+                
             }
         }
 
