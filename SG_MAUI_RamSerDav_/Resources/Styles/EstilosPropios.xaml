@@ -30,7 +30,7 @@
                         <VisualState x:Name="Disabled">
                             <VisualState.Setters>
                                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource color7}, Dark={StaticResource color0}}" />
-                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color0}, Dark={StaticResource color7}}" />
+                                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource color0}, Dark={StaticResource color1}}" />
                             </VisualState.Setters>
                         </VisualState>
                     </VisualStateGroup>
@@ -39,7 +39,18 @@
         </Style>
 
 
-        <Style TargetType="Entry">
+    <Style x:Key="DarkTemaBotonStylo" TargetType="Button">
+        <Setter Property="FontFamily" Value="Red" />
+        <Setter Property="TextColor" Value="White" />
+    </Style>
+
+    <Style x:Key="LightTemaBotonStylo" TargetType="Button">
+        <Setter Property="FontFamily" Value="Yellow" />
+        <Setter Property="TextColor" Value="Black" />
+    </Style>
+
+
+    <Style TargetType="Entry">
             <Setter Property="FontFamily" Value="MiFuente" />
             <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource color0}, Dark={StaticResource color7}}" />
             <Setter Property="BackgroundColor" Value="Transparent" />
