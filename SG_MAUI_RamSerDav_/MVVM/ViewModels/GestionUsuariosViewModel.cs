@@ -84,10 +84,6 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             }
         }
 
-        public void cambiarCheckbox()
-        {
-            UsuarioActual.EsDelegado = !UsuarioActual.EsDelegado;
-        }
 
         public void limpiarCampos()
         {

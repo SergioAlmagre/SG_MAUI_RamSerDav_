@@ -43,7 +43,7 @@
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame BackgroundColor="LightCoral" Margin="15,15,15,15" HeightRequest="350" WidthRequest="300">
+                    <Frame BackgroundColor="LightCoral" Margin="15,15,15,15" HeightRequest="250" WidthRequest="300">
                         <VerticalStackLayout>
                             <Label Text="{Binding Email}"/>
                             <Label Text="{Binding Password}"/>

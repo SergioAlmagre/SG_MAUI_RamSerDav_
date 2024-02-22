@@ -35,7 +35,7 @@
             </HorizontalStackLayout>
 
             <!-- Logica de Texto -->
-            <Entry Placeholder="Username" Text="{Binding Username}" />
+            <Entry Placeholder="Email" Text="{Binding Email}" />
             <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
 
             <!-- Botones -->

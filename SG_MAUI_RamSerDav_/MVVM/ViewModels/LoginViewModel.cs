@@ -18,13 +18,13 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         public ICommand limpiarCommand { get; set; }
         public ICommand aceptarCommand { get; set; }
         public ICommand ExitCommand { get; set; }
-        private string _username;
+        private string _email;
         public string Email
         { 
-            get => _username; 
+            get => _email; 
             set 
             {
-                _username = value;
+                _email = value;
                 OnPropertyChanged(nameof(Email));
                 OnPropertyChanged(nameof(IsAceptarEnabled));
             }
