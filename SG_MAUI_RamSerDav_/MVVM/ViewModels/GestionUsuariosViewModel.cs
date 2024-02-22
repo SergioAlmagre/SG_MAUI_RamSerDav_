@@ -4,23 +4,51 @@ using SG_MAUI_RamSerDav_.MVVM.Models;
 using SG_MAUI_RamSerDav_.MVVM.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class GestionUsuariosViewModel
+    public class GestionUsuariosViewModel 
     {
-       public List<Usuario> ListaUsuarios { get; set; } = new List<Usuario>();
+        
+        public List<Usuario> ListaUsuarios { get; set; } = new List<Usuario>();
         public Usuario UsuarioActual { get; set; } = new Usuario();
         public ICommand btnIrGestionUsuariosCommand { get; set; }
         public ICommand EliminarCommand { get; set; }
         public ICommand GuardarCommand { get; set; }
         public ICommand btnVolverCommand { get; set; }
         public ICommand LimpiaCommand { get; set; }
+
+
+        //private string _email;
+        //public string Email
+        //{
+        //    get => _email;
+        //    set
+        //    {
+        //        _email = value;
+        //        OnPropertyChanged(nameof(Email));
+        //        OnPropertyChanged(nameof(IsAceptarEnabled));
+        //    }
+        //}
+
+        //private string _password;
+        //public string Password
+        //{
+        //    get => _password;
+        //    set
+        //    {
+        //        _password = value;
+        //        OnPropertyChanged(nameof(Password));
+        //        OnPropertyChanged(nameof(IsAceptarEnabled));
+        //    }
+        //}
 
         public GestionUsuariosViewModel()
         {
@@ -32,19 +60,35 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
             btnVolverCommand = new Command(() =>
             {
-                App.Current.MainPage.Navigation.PopAsync();
+                if (Application.Current.MainPage.Navigation.NavigationStack.Count > 1)
+                {
+                    Application.Current.MainPage.Navigation.PopAsync();
+                }
             });
+
+
 
 
             EliminarCommand = new Command(async () =>
             {
-                bool confirmacion = await Herramientas.MensajeConfirmacion("info", "Desea eliminar el usuario?");
-                if (confirmacion)
+                if (UsuarioActual.Id == 0)
                 {
-                    App.UsuarioRepo.DeleteItem(UsuarioActual);
-                    refrescarLista();
+                    Herramientas.MensajeInfomativoAsync("No se ha seleccionado un usuario");
+                    return;
+                }
+                else
+                {
+                    bool confirmacion = await Herramientas.MensajeConfirmacion("info", "Desea eliminar el usuario?");
+                    if (confirmacion)
+                    {
+                        App.UsuarioRepo.DeleteItem(UsuarioActual);
+                        refrescarLista();
+
+                    }
 
                 }
+
+                
                
             });
 
@@ -78,6 +122,10 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             });
 
         }
+
+      
+
+
 
         public bool camposVacios()
         {

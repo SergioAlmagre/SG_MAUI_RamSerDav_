@@ -22,6 +22,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             btnIrGestionUsuariosCommand = new Command(() =>
             {
                 App.Current.MainPage.Navigation.PushAsync(new GestionUsuariosView());
+               
             });
 
 
