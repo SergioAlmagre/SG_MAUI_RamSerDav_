@@ -86,6 +86,10 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                         refrescarLista();
 
                     }
+=======
+                    App.UsuarioRepo.DeleteItem(UsuarioActual); // Eliminar el usuario
+                    refrescarLista();
+>>>>>>> 2862a11dcd1b4aec2f116e416eeddbbe09d234a9
 
                 }
 
