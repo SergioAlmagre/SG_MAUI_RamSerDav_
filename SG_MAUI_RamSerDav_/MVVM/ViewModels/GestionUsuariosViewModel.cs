@@ -36,10 +36,16 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             });
 
 
-            EliminarCommand = new Command(() =>
+            EliminarCommand = new Command(async () =>
             {
-                App.UsuarioRepo.DeleteItem(UsuarioActual);
-                refrescarLista();
+                bool confirmacion = await Herramientas.MensajeConfirmacion("info", "Desea eliminar el usuario?");
+                if (confirmacion)
+                {
+                    App.UsuarioRepo.DeleteItem(UsuarioActual);
+                    refrescarLista();
+
+                }
+               
             });
 
             LimpiaCommand = new Command(() =>
@@ -62,6 +68,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                     }
                     else 
                     {
+                        Herramientas.MensajeInfomativoAsync("Usuario guardado correctamente");
                         App.UsuarioRepo.SaveItemCascade(UsuarioActual);
                         refrescarLista();
                         limpiarCampos();
