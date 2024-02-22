@@ -13,11 +13,11 @@ namespace SG_MAUI_RamSerDav_.MVVM.Converter
         {
             if ((bool)value)
             {
-                return "Delegado";
+                return " Delegado";
             }
             else
             {
-                return "Normal";
+                return " Normal";
             }
         }
 

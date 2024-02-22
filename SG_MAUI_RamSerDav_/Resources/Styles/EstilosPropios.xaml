@@ -94,7 +94,8 @@
         </Style>
 
 
-    
+    <!--Hay problemas con la navegación  reconocidos en la comunidad con la llamada desde el atributo de la collectionView a EmptyView-->
+    <!--Se puede usar pero al volver a la página anterior por segunda vez, la aplicación se cierra.-->
         <ContentView x:Key="vistaSinResultados">
             <VerticalStackLayout>
                 <Image

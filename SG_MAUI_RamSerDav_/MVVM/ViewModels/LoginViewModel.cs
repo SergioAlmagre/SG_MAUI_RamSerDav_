@@ -44,7 +44,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         public LoginViewModel()
         {
-            agregarUsuariosFake();
+            //agregarUsuariosFake();
             limpiarCommand = new Command(ClearFields);
             aceptarCommand = new Command(inicioSesion, () => IsAceptarEnabled);
             TemaOscuroActivado = false;

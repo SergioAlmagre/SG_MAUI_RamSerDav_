@@ -24,23 +24,35 @@
         </Frame>
         <!--FIN BARRA DE NAVEGACION PERSONALIZADA-->
         
+        
         <VerticalStackLayout Grid.Row="1">
             <Entry Placeholder="Email" Text="{Binding UsuarioActual.Email}"/>
             <Entry Placeholder="Password" IsPassword="True" Text="{Binding UsuarioActual.Password}"/>
-            <Label  Text="{Binding UsuarioActual.EsDelegado,Converter={StaticResource ConversorBooleanText}}"/>
+            <Label  Text="{Binding UsuarioActual.EsDelegado,Converter={StaticResource ConversorBooleanText}}" TextColor="{StaticResource color4}"/>
             <Button Text="Guardar" Command="{Binding GuardarCommand}"/>
             <Button Text="Borrar" Command="{Binding EliminarCommand}"/>
             <Button Text="Limpiar" Command="{Binding LimpiaCommand}" />
         </VerticalStackLayout>
         
         
-         <!--<CollectionView Grid.Row="2" ItemsSource="{Binding ListaUsuarios}"-->  
-        <CollectionView Grid.Row="2" ItemsSource="{Binding ListaUsuarios}" EmptyView="{StaticResource  vistaSinResultados}"  
+        <!--Inicio de la CollectionView-->
+        <CollectionView Grid.Row="2" ItemsSource="{Binding ListaUsuarios}"  
                 SelectionMode="Single"  
                 SelectedItem="{Binding UsuarioActual}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" />
             </CollectionView.ItemsLayout>
+
+            <!--Establecemos el diseño de colección vacía desde aquí porque desde una resource dictionary hay problemas con la navegación-->
+            <CollectionView.EmptyView>
+                <VerticalStackLayout>
+                    <Label  Text="No hay usuarios" FontSize="Header" Margin="25,25,25,25" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="{StaticResource color8}"/>
+                    <Image Source="no_elementos.png" WidthRequest="200" HeightRequest="200" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+                
+            
+            <!--Dejamos preparado el diseño para implementar un dataTemplate pero con el CheckedChanded no hay manera desde un dictionaryResources-->
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BackgroundColor="LightCoral" Margin="15,15,15,15" HeightRequest="250" WidthRequest="300">
