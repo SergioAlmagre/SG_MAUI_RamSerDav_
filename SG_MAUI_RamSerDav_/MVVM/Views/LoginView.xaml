@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SG_MAUI_RamSerDav_.MVVM.Views.LoginView"
              Title="LoginView">
+    <ContentPage.Resources>
+        <conv:ConversorTema x:Key="ConversorTema"/>
+    </ContentPage.Resources>
     <VerticalStackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20">
         <!-- Imagen -->
         <Image Source="algooo.jpg" Aspect="AspectFit" HeightRequest="200" />
@@ -14,5 +17,11 @@
         <!-- Botones -->
         <Button Text="Aceptar" Command="{Binding aceptarCommand}" IsEnabled="{Binding IsAceptarEnabled}" />
         <Button Text="Limpiar" Command="{Binding limpiarCommand}" />
+
+        <Switch Toggled="CambiarTema_Toggled" VerticalOptions="Center" 
+            IsToggled="{Binding TemaOscuroActivado}"/>
+        <Label Text="{Binding TemaOscuroActivado, 
+              Converter={StaticResource ConversorTema}}" 
+            VerticalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>

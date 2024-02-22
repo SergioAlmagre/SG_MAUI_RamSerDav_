@@ -10,8 +10,6 @@ using PropertyChanged;
 using SG_MAUI_RamSerDav_.MVVM.Views;
 using SG_MAUI_RamSerDav_.MVVM.Abstractions;
 
-
-
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
@@ -21,6 +19,8 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         public IBaseRepository<Usuario> usuarioRepository => App.UsuarioRepo;
 
+        public bool TemaOscuroActivado { get; set; }
+
         public string Username { get; set; }
         public string Password { get; set; }
 
@@ -29,8 +29,10 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         public LoginViewModel()
         {
+            agregarUsuariosFake();
             limpiarCommand = new Command(ClearFields);
             aceptarCommand = new Command(inicioSesion, () => IsAceptarEnabled);
+            TemaOscuroActivado = false;
         }
 
         public bool IsAceptarEnabled => !string.IsNullOrWhiteSpace(Username) && !string.IsNullOrWhiteSpace(Password);
