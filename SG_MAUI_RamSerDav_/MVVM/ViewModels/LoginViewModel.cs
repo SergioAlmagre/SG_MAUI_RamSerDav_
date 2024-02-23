@@ -16,9 +16,9 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         public event PropertyChangedEventHandler PropertyChanged; // Evento para notificar cambios de propiedad, sin esto no se ha conseguido cumplir la condicion de pasar de desabilitado a habilitado el boton al escribir
 
         /// <summary>
-        /// Repositorio de usuarios
+        /// usuario encontrado en la bbdd
         /// </summary>
-        public IBaseRepository<Usuario> usuarioRepository => App.UsuarioRepo;
+        public Usuario usuarioEncontrado { get; set; } = new Usuario();
 
         /// <summary>
         /// Propiedad para el estado del tema oscuro
@@ -111,9 +111,9 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             string passwordEncriptada = Herramientas.encriptarContraseña(Password);
 
             // Obtención del usuario desde el repositorio
-            var usuarioObtenido = usuarioRepository.GetItem(u => u.Email == Email && u.Password == passwordEncriptada);
+            usuarioEncontrado = App.UsuarioRepo.GetItem(u => u.Email == Email && u.Password == passwordEncriptada);
 
-            if (usuarioObtenido != null)
+            if (usuarioEncontrado != null)
             {
                 // Pasamos a la siguiente ventana, eliminamos la ventana de navegación
                 App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
@@ -140,8 +140,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                             Password = Herramientas.encriptarContraseña(Password), // Encriptar la contraseña antes de guardarla
                             EsDelegado = false
                         };
-                        usuarioRepository.SaveItem(usuario);
-
+                        App.UsuarioRepo.SaveItem(usuario); // Guarda el usuario en el repositorio
                         App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
                         App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
                     }
