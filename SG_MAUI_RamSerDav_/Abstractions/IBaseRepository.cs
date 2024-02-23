@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
 namespace SG_MAUI_RamSerDav_.MVVM.Abstractions
 {
+    /// <summary>
+    /// Interfaz que define las operaciones básicas de un repositorio genérico.
+    /// </summary>
+    /// <typeparam name="T">Tipo de entidad que se manejará en el repositorio.</typeparam>
     public interface IBaseRepository<T> : IDisposable
     where T : TableData, new()
     {

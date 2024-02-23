@@ -1,20 +1,29 @@
 ﻿using SG_MAUI_RamSerDav_.MVVM.Abstractions;
-using System;
-using System.IO;
 
-// Objeto Usuario / Alumno
 namespace SG_MAUI_RamSerDav_.MVVM.Models
 {
-    [SQLite.Table("Usuarios")]
+    /// <summary>
+    /// Modelo llamado Usuario, el cual representa a los estudiantes de la aplicación.
+    /// </summary>
+    [SQLite.Table("Usuarios")] // Define laa columna como "Usuarios"
     public class Usuario : TableData
     {
-        [SQLite.Column("Email")]
+        /// <summary>
+        /// Correo electrónico del usuario.
+        /// </summary>
+        [SQLite.Column("Email")] // Define la columna como "Email"
         public string Email { get; set; }
 
-        [SQLite.Column("Password")]
+        /// <summary>
+        /// Contraseña del usuario.
+        /// </summary>
+        [SQLite.Column("Password")] // Define la columna como "Password"
         public string Password { get; set; }
 
-        [SQLite.Column("EsDelegado")]
+        /// <summary>
+        /// Indica si el usuario es un delegado o no, este metodo es extra.
+        /// </summary>
+        [SQLite.Column("EsDelegado")] // Define la columna como "EsDelegado"
         public bool EsDelegado { get; set; }
     }
 }

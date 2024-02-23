@@ -8,6 +8,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
+        <!-- Definimos el contenedor como Vertial-->
         <VerticalStackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20">
 
             <!-- Color Con Degradado-->
@@ -18,9 +19,7 @@
                 </LinearGradientBrush>
             </StackLayout.Background>
 
-            <!-- Imagen -->
-            
-            
+            <!-- Imagen y Switch del cambio de Tema -->     
             <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Margin="50,50,50,50">
                 <Image Source="maui.png" Aspect="AspectFit" HeightRequest="200" HorizontalOptions="CenterAndExpand" />
                 

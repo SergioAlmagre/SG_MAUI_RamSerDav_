@@ -3,24 +3,34 @@ using SG_MAUI_RamSerDav_.MVVM.ViewModels;
 
 namespace SG_MAUI_RamSerDav_.MVVM.Views;
 
+/// <summary>
+/// ViewModel para Gestion de Usuarios.
+/// </summary>
 public partial class GestionUsuariosView : ContentPage
 {
-	public GestionUsuariosViewModel gestUsuariosVM = new GestionUsuariosViewModel();
-	public GestionUsuariosView()
-	{
-		InitializeComponent();
-		BindingContext = gestUsuariosVM;
-	}
+    // ViewModel para la vista de gestión de usuarios
+    public GestionUsuariosViewModel gestUsuariosVM = new GestionUsuariosViewModel();
 
+    /// <summary>
+    /// Constructor 
+    public GestionUsuariosView()
+    {
+        InitializeComponent();
+        BindingContext = gestUsuariosVM; // Establece el contexto de enlace con el ViewModel
+    }
+
+    /// <summary>
+    /// Manejador de eventos para el cambio de estado del CheckBox.
+    /// </summary>
     private void checkBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        // Obtiene el DataContext del CheckBox (que es el objeto Usuario en este caso)
+        // Obtiene el DataContext del CheckBox, es decir, Usuario por ende los Alumnos
         if (sender is CheckBox checkBox && checkBox.BindingContext is Usuario usu)
         {
-            gestUsuariosVM.UsuarioActual = usu;
-            gestUsuariosVM.UsuarioActual.EsDelegado = e.Value;
-            App.UsuarioRepo.SaveItemCascade(gestUsuariosVM.UsuarioActual);
-            gestUsuariosVM.limpiarCampos();
+            gestUsuariosVM.UsuarioActual = usu; // Establece el usuario actual en el ViewModel
+            gestUsuariosVM.UsuarioActual.EsDelegado = e.Value; // Actualiza el estado del usuario
+            App.UsuarioRepo.SaveItemCascade(gestUsuariosVM.UsuarioActual); // Guarda los cambios en bbdd
+            gestUsuariosVM.limpiarCampos(); // Limpia los campos
         }  
     }
 }

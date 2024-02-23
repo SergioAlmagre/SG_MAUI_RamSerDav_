@@ -2,29 +2,51 @@ using PropertyChanged;
 using SG_MAUI_RamSerDav_.Auxiliar;
 using SG_MAUI_RamSerDav_.MVVM.Models;
 using SG_MAUI_RamSerDav_.MVVM.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
-    [AddINotifyPropertyChangedInterface]
+    /// <summary>
+    /// ViewModel para la vista de gestión de usuarios.
+    /// </summary>
+    [AddINotifyPropertyChangedInterface] // Agrega automáticamente la implementación de repintes
     public class GestionUsuariosViewModel 
     {
-        
+        /// <summary>
+        /// Lista de usuarios.
+        /// </summary>
         public List<Usuario> ListaUsuarios { get; set; } = new List<Usuario>();
-        public Usuario UsuarioActual { get; set; } = new Usuario();
-        public ICommand btnIrGestionUsuariosCommand { get; set; }
-        public ICommand EliminarCommand { get; set; }
-        public ICommand GuardarCommand { get; set; }
-        public ICommand btnVolverCommand { get; set; }
-        public ICommand LimpiaCommand { get; set; }
 
+        /// <summary>
+        /// Usuario actual seleccionado.
+        /// </summary>
+        public Usuario UsuarioActual { get; set; } = new Usuario();
+
+        /// <summary>
+        /// Comando para navegar a la vista de gestión de usuarios.
+        /// </summary>
+        public ICommand btnIrGestionUsuariosCommand { get; set; }
+
+        /// <summary>
+        /// Comando para eliminar un usuario.
+        /// </summary>
+        public ICommand EliminarCommand { get; set; }
+
+        /// <summary>
+        /// Comando para guardar un usuario.
+        /// </summary>
+        public ICommand GuardarCommand { get; set; }
+
+        /// <summary>
+        /// Comando para volver a la vista anterior.
+        /// </summary>
+        public ICommand btnVolverCommand { get; set; }
+
+        /// <summary>
+        /// Comando para limpiar los campos.
+        /// </summary>
+        public ICommand LimpiaCommand { get; set; }
 
         //private string _email;
         //public string Email
@@ -50,6 +72,9 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         //    }
         //}
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public GestionUsuariosViewModel()
         {
             refrescarLista();
@@ -66,9 +91,6 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                     Application.Current.MainPage.Navigation.PopAsync();
                 }
             });
-
-
-
 
             EliminarCommand = new Command(async () =>
             {
@@ -90,11 +112,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                     App.UsuarioRepo.DeleteItem(UsuarioActual); // Eliminar el usuario
                     refrescarLista();
 
-
-                }
-
-                
-               
+                }   
             });
 
             LimpiaCommand = new Command(() =>
@@ -146,32 +164,29 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 
         }
 
-      
-
-
-
+        /// <summary>
+        /// Verifica si los campos de email y contraseña están vacíos.
+        /// </summary>
+        /// <returns>True si los campos están vacíos, de lo contrario False.</returns>
         public bool camposVacios()
         {
-            if(string.IsNullOrWhiteSpace(UsuarioActual.Email) || string.IsNullOrWhiteSpace(UsuarioActual.Password))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return string.IsNullOrWhiteSpace(UsuarioActual.Email) || string.IsNullOrWhiteSpace(UsuarioActual.Password);
         }
 
-
+        /// <summary>
+        /// Limpia los campos del usuario actual.
+        /// </summary>
         public void limpiarCampos()
         {
             UsuarioActual = new Usuario();
         }
 
+        /// <summary>
+        /// Refresca la lista de usuarios.
+        /// </summary>
         public void refrescarLista()
         {
             ListaUsuarios = App.UsuarioRepo.GetItems();
         }
-
     }
 }
