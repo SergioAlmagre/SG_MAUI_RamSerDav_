@@ -5,36 +5,52 @@ using PropertyChanged;
 using SG_MAUI_RamSerDav_.MVVM.Abstractions;
 using SG_MAUI_RamSerDav_.Auxiliar;
 
-using System.Text.RegularExpressions;
-
 namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
 {
-    [AddINotifyPropertyChangedInterface]
+    /// <summary>
+    /// ViewModel de inicio de sesión.
+    /// </summary>
+    [AddINotifyPropertyChangedInterface] // Agrega automáticamente la implementación de repintes
     public class LoginViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged; // Evento para notificar cambios de propiedad, sin esto no se ha conseguido cumplir la condicion de pasar de desabilitado a habilitado el boton al escribir
+
+        /// <summary>
+        /// Repositorio de usuarios
+        /// </summary>
         public IBaseRepository<Usuario> usuarioRepository => App.UsuarioRepo;
+
+        /// <summary>
+        /// Propiedad para el estado del tema oscuro
+        /// </summary>
         public bool TemaOscuroActivado { get; set; }
+
+        /// <summary>
+        /// Comandos De botones y acciones
+        /// </summary>
         public ICommand limpiarCommand { get; set; }
         public ICommand aceptarCommand { get; set; }
         public ICommand ExitCommand { get; set; }
+
+        /// <summary>
+        /// Propiedad para la verificación del estado de los text, email y contraseña
+        /// </summary>
         private string _email;
         public string Email
-        { 
-            get => _email; 
-            set 
+        {
+            get => _email;
+            set
             {
                 _email = value;
                 OnPropertyChanged(nameof(Email));
                 OnPropertyChanged(nameof(IsAceptarEnabled));
             }
         }
-
         private string _password;
         public string Password
-        { 
+        {
             get => _password;
-            set 
+            set
             {
                 _password = value;
                 OnPropertyChanged(nameof(Password));
@@ -42,13 +58,16 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             }
         }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public LoginViewModel()
         {
-            //agregarUsuariosFake();
             limpiarCommand = new Command(ClearFields);
             aceptarCommand = new Command(inicioSesion, () => IsAceptarEnabled);
             TemaOscuroActivado = false;
 
+            // Comando para salir de la aplicación
             ExitCommand = new Command(async () =>
             {
                 bool confirmacion = await Herramientas.MensajeConfirmacion("info", "Desea salir de la aplicación?");
@@ -59,51 +78,62 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             });
         }
 
+        // Propiedad para habilitar/deshabilitar el boton de aceptar
         public bool IsAceptarEnabled => !string.IsNullOrWhiteSpace(Email) && !string.IsNullOrWhiteSpace(Password);
 
+        // Método para limpiar los campos de email y contraseña
         private void ClearFields()
         {
             Email = string.Empty;
             Password = string.Empty;
         }
 
+        /// <summary>
+        /// Método para el inicio de sesión
+        /// </summary>
         private async void inicioSesion()
         {
+            // Validación del email
             if (!Herramientas.validarEmail(Email))
             {
-                Herramientas.MensajeInfomativoAsync("El correo electrónico no es válido");
-                return;
+                await Herramientas.MensajeInfomativoAsync("El correo electrónico no es válido");
+                return; // Necesario para no pasar por mas Opciones
             }
 
+            // Validación de la contraseña
             if (!Herramientas.validarPassword(Password))
             {
-                Herramientas.MensajeInfomativoAsync("La contraseña debe tener al menos 6 caracteres, al menos 1 número y una letra mayúscula");
+                await Herramientas.MensajeInfomativoAsync("La contraseña debe tener al menos 6 caracteres, al menos 1 número y una letra mayúscula");
                 return;
             }
 
-            // Encriptar la contraseña ingresada
+            // Encriptación de la contraseña ingresada
             string passwordEncriptada = Herramientas.encriptarContraseña(Password);
 
+            // Obtención del usuario desde el repositorio
             var usuarioObtenido = usuarioRepository.GetItem(u => u.Email == Email && u.Password == passwordEncriptada);
 
             if (usuarioObtenido != null)
             {
+                // Pasamos a la siguiente ventana, eliminamos la ventana de navegación
                 App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
                 App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
             }
             else
             {
-                // Verificar si el correo electrónico ya está en uso
+                // Verificación de si el correo electrónico ya está en uso
                 if (Herramientas.CorreoElectronicoEnUso(Email))
                 {
                     await Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
                     ClearFields();
                 }
-                else 
+                else
                 {
+                    // Confirmación para registrar un nuevo usuario
                     bool res = await Herramientas.MensajeConfirmacion("info", "El usuario no existe, ¿desea registrarse?");
                     if (res)
                     {
+                        // Creación y guardado del nuevo usuario
                         var usuario = new Usuario
                         {
                             Email = Email,
@@ -111,27 +141,29 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                             EsDelegado = false
                         };
                         usuarioRepository.SaveItem(usuario);
+
                         App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
                         App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
                     }
-                    else 
+                    else
                     {
                         ClearFields();
                     }
-
-
                 }
-                
             }
         }
 
-        // Chequeo de datos
+        /// <summary>
+        /// Método para la notificación de cambios en las propiedades
+        /// </summary>
+        /// <param name="propertyName"></param>
         public void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        // Inserción de Datos
+        /// <summary>
+        /// Método para insertar usuarios falsos, solo para pruebas.
+        /// </summary>
         public void agregarUsuariosFake()
         {
             List<Usuario> listaUsuariosFake = new List<Usuario>
@@ -139,37 +171,37 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 new Usuario
                 {
                     Email = "a@a.com",
-                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
+                    Password = Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = true
                 },
                 new Usuario
                 {
                     Email = "b@b.com",
-                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
+                    Password = Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = false
                 },
                 new Usuario
                 {
                     Email = "c@c.com",
-                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
+                    Password = Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = false
                 },
                 new Usuario
                 {
                     Email = "d@d.com",
-                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
+                    Password = Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = false
                 },
                 new Usuario
                 {
                     Email = "e@e.com",
-                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
+                    Password = Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = false
                 },
                 new Usuario
                 {
                     Email = "f@f.com",
-                    Password = Auxiliar.Herramientas.encriptarContraseña("1234Abc"),
+                    Password = Herramientas.encriptarContraseña("1234Abc"),
                     EsDelegado = false
                 },
             };

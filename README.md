@@ -82,9 +82,6 @@ Para interactuar con la aplicación:
 - Cifrado de contraseñas para aumentar la seguridad de las contraseñas de nuestros usuarios.
 - Conversor de los datos Booleans a texto.
 
-## Características Usadas
-
-
 # Licencia
 Este proyecto está bajo la Licencia MIT.
 Para realizarlo se ha necesitado de una cuenta *Github Pro* para usar *Gitkraken Pro*
