@@ -38,7 +38,8 @@
         <!--Inicio de la CollectionView-->
         <CollectionView Grid.Row="2" ItemsSource="{Binding ListaUsuarios}"  
                 SelectionMode="Single"  
-                SelectedItem="{Binding UsuarioActual}">
+                SelectedItem="{Binding UsuarioActual}"
+                 >
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" />
             </CollectionView.ItemsLayout>

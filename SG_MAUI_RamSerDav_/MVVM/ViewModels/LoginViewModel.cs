@@ -124,7 +124,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 // Verificación de si el correo electrónico ya está en uso
                 if (Herramientas.CorreoElectronicoEnUso(Email))
                 {
-                    await Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
+                    await Herramientas.MensajeInfomativoAsync("Usuario o contraseña incorrectos.");
                     ClearFields();
                 }
                 else
@@ -141,8 +141,19 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                             EsDelegado = false
                         };
                         App.UsuarioRepo.SaveItem(usuario); // Guarda el usuario en el repositorio
-                        App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
-                        App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
+                       if (App.UsuarioRepo.StatusMessage == null)
+                        {
+                            await Herramientas.MensajeInfomativoAsync("Usuario guardado correctamente");
+                            App.Current.MainPage.Navigation.PushAsync(new PPrincipalView());
+                            App.Current.MainPage.Navigation.RemovePage(App.Current.MainPage.Navigation.NavigationStack[0]);
+                        }
+                        else
+                        {
+                            await Herramientas.MensajeInfomativoAsync("Ha ocurrido un error desconocido durante la operación, vuelva a intentarlo");
+                            App.UsuarioRepo.StatusMessage = null;
+                        }
+                      
+                        
                     }
                     else
                     {
