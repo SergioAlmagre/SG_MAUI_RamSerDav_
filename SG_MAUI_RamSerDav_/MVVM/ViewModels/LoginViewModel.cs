@@ -94,14 +94,14 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         private async void inicioSesion()
         {
             // Validación del email
-            if (!Herramientas.validarEmail(Email))
+            if (!Herramientas.emailCumpleMascara(Email))
             {
                 await Herramientas.MensajeInfomativoAsync("El correo electrónico no es válido");
                 return; // Necesario para no pasar por mas Opciones
             }
 
             // Validación de la contraseña
-            if (!Herramientas.validarPassword(Password))
+            if (!Herramientas.passwordCumpleMascara(Password))
             {
                 await Herramientas.MensajeInfomativoAsync("La contraseña debe tener al menos 6 caracteres, al menos 1 número y una letra mayúscula");
                 return;

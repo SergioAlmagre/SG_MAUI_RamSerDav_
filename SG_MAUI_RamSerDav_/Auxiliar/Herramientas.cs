@@ -88,7 +88,7 @@ namespace SG_MAUI_RamSerDav_.Auxiliar
         /// </summary>
         /// <param name="email">Correo electrónico a validar.</param>
         /// <returns>True si el correo es válido, False si no lo es.</returns>
-        public static bool validarEmail(string email)
+        public static bool emailCumpleMascara(string email)
         {
             string emailPattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
             return Regex.IsMatch(email, emailPattern);
@@ -99,7 +99,7 @@ namespace SG_MAUI_RamSerDav_.Auxiliar
         /// </summary>
         /// <param name="password">Contraseña a validar.</param>
         /// <returns>True si la contraseña es válida, False si no lo es.</returns>
-        public static bool validarPassword(string password)
+        public static bool passwordCumpleMascara(string password)
         {
             string passwordPattern = @"^(?=.*[A-Z])(?=.*\d).{6,}$";
             return Regex.IsMatch(password, passwordPattern);

@@ -28,8 +28,8 @@ public partial class GestionUsuariosView : ContentPage
         if (sender is CheckBox checkBox && checkBox.BindingContext is Usuario usu)
         {
             gestUsuariosVM.UsuarioActual = usu; // Establece el usuario actual en el ViewModel
-            gestUsuariosVM.UsuarioActual.EsDelegado = e.Value; // Actualiza el estado del usuario
-            App.UsuarioRepo.SaveItemCascade(gestUsuariosVM.UsuarioActual); // Guarda los cambios en bbdd
+            gestUsuariosVM.UsuarioActual.EsDelegado = e.Value; // Actualiza el estado del usuario 
+            App.UsuarioRepo.SaveItemCascade(gestUsuariosVM.UsuarioActual); // Guarda los cambios en bbdd sin aviar al usuario
             gestUsuariosVM.limpiarCampos(); // Limpia los campos
         }  
     }
