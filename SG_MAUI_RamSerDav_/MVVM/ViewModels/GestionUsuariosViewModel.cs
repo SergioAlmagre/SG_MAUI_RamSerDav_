@@ -73,7 +73,7 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             {
                 if (UsuarioActual.Id == 0)
                 {
-                    Herramientas.MensajeInfomativoAsync("No se ha seleccionado un usuario");
+                    await Herramientas.MensajeInfomativoAsync("No se ha seleccionado un usuario");
                     return;
                 }
                 else
@@ -84,12 +84,14 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                         App.UsuarioRepo.DeleteItem(UsuarioActual);
                         if(App.UsuarioRepo.StatusMessage == null)
                         {
-                            Herramientas.MensajeInfomativoAsync("Usuario eliminado correctamente");
+                          await  Herramientas.MensajeInfomativoAsync("Usuario eliminado correctamente");
                             refrescarLista();
+                            limpiarCampos();
                         }
                         else
                         {
-                            Herramientas.MensajeInfomativoAsync("Ha ocurrido un error desconocido durante la operación, vuelva a intentarlo");
+                            await Herramientas.MensajeInfomativoAsync("Ha ocurrido un error desconocido durante la operación, vuelva a intentarlo");
+                            App.UsuarioRepo.StatusMessage = null;
                         }
                     }
                 }   
@@ -101,23 +103,23 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
             });
 
 
-            GuardarCommand = new Command(() =>
+            GuardarCommand = new Command(async() =>
             {
                 if(camposVacios()) //Verificar si los campos están vacíos
                 {
-                    Herramientas.MensajeInfomativoAsync("Existen campos vacíos o usuario sin seleccionar");
+                    await Herramientas.MensajeInfomativoAsync("Existen campos vacíos o usuario sin seleccionar");
                 }
                 else
                 {
 
                     if(Herramientas.emailCumpleMascara(UsuarioActual.Email) == false) // Verificar si el correo electrónico es válido
                     {
-                        Herramientas.MensajeInfomativoAsync("El correo electrónico no es válido.");
+                        await Herramientas.MensajeInfomativoAsync("El correo electrónico no es válido.");
                         return;
                     }
                     else if(Herramientas.passwordCumpleMascara(UsuarioActual.Password) == false) // Verificar si la contraseña es válida
                     {
-                        Herramientas.MensajeInfomativoAsync("La contraseña debe tener al menos 6 caracteres, al menos 1 número y una letra mayúscula");
+                        await Herramientas.MensajeInfomativoAsync("La contraseña debe tener al menos 6 caracteres, al menos 1 número y una letra mayúscula");
                         return;
                     }
                     else
@@ -129,20 +131,21 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                     // Verificar si el correo electrónico ya está en uso
                     if (Herramientas.CorreoElectronicoEnUso(UsuarioActual.Email)) // Verificar si el correo electrónico ya está en uso
                     {
-                        Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
+                        await Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
                     }
                     else 
                     {   
                         App.UsuarioRepo.SaveItemCascade(UsuarioActual); // Guardar el usuario
                         if(App.UsuarioRepo.StatusMessage == null) // Verificar si el usuario se guardó correctamente
                         {
-                            Herramientas.MensajeInfomativoAsync("Usuario guardado correctamente");
+                            await Herramientas.MensajeInfomativoAsync("Usuario guardado correctamente");
                             refrescarLista(); 
                             limpiarCampos();
                         }
                         else
                         {
-                            Herramientas.MensajeInfomativoAsync("Ha ocurrido un error desconocido durante la operación, vuelva a intentarlo");
+                            await Herramientas.MensajeInfomativoAsync("Ha ocurrido un error desconocido durante la operación, vuelva a intentarlo");
+                            App.UsuarioRepo.StatusMessage = null;
                         }
                     }
                 }
