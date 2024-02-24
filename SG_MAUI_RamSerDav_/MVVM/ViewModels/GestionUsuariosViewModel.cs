@@ -48,29 +48,6 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
         /// </summary>
         public ICommand LimpiaCommand { get; set; }
 
-        //private string _email;
-        //public string Email
-        //{
-        //    get => _email;
-        //    set
-        //    {
-        //        _email = value;
-        //        OnPropertyChanged(nameof(Email));
-        //        OnPropertyChanged(nameof(IsAceptarEnabled));
-        //    }
-        //}
-
-        //private string _password;
-        //public string Password
-        //{
-        //    get => _password;
-        //    set
-        //    {
-        //        _password = value;
-        //        OnPropertyChanged(nameof(Password));
-        //        OnPropertyChanged(nameof(IsAceptarEnabled));
-        //    }
-        //}
 
         /// <summary>
         /// Constructor.
@@ -105,13 +82,16 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                     if (confirmacion)
                     {
                         App.UsuarioRepo.DeleteItem(UsuarioActual);
-                        refrescarLista();
-
+                        if(App.UsuarioRepo.StatusMessage == null)
+                        {
+                            Herramientas.MensajeInfomativoAsync("Usuario eliminado correctamente");
+                            refrescarLista();
+                        }
+                        else
+                        {
+                            Herramientas.MensajeInfomativoAsync("Ha ocurrido un error desconocido durante la operación, vuelva a intentarlo");
+                        }
                     }
-
-                    App.UsuarioRepo.DeleteItem(UsuarioActual); // Eliminar el usuario
-                    refrescarLista();
-
                 }   
             });
 
@@ -130,12 +110,12 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                 else
                 {
 
-                    if(Herramientas.validarEmail(UsuarioActual.Email) == false) // Verificar si el correo electrónico es válido
+                    if(Herramientas.emailCumpleMascara(UsuarioActual.Email) == false) // Verificar si el correo electrónico es válido
                     {
                         Herramientas.MensajeInfomativoAsync("El correo electrónico no es válido.");
                         return;
                     }
-                    else if(Herramientas.validarPassword(UsuarioActual.Password) == false) // Verificar si la contraseña es válida
+                    else if(Herramientas.passwordCumpleMascara(UsuarioActual.Password) == false) // Verificar si la contraseña es válida
                     {
                         Herramientas.MensajeInfomativoAsync("La contraseña debe tener al menos 6 caracteres, al menos 1 número y una letra mayúscula");
                         return;
@@ -152,13 +132,19 @@ namespace SG_MAUI_RamSerDav_.MVVM.ViewModels
                         Herramientas.MensajeInfomativoAsync("El correo electrónico ya está en uso.");
                     }
                     else 
-                    {
-                        Herramientas.MensajeInfomativoAsync("Usuario guardado correctamente");
+                    {   
                         App.UsuarioRepo.SaveItemCascade(UsuarioActual); // Guardar el usuario
-                        refrescarLista(); 
-                        limpiarCampos();
+                        if(App.UsuarioRepo.StatusMessage == null) // Verificar si el usuario se guardó correctamente
+                        {
+                            Herramientas.MensajeInfomativoAsync("Usuario guardado correctamente");
+                            refrescarLista(); 
+                            limpiarCampos();
+                        }
+                        else
+                        {
+                            Herramientas.MensajeInfomativoAsync("Ha ocurrido un error desconocido durante la operación, vuelva a intentarlo");
+                        }
                     }
-                    
                 }
             });
 
