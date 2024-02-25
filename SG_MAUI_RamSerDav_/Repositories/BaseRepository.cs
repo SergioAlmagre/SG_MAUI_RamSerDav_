@@ -1,6 +1,6 @@
 ﻿
+using SG_MAUI_RamSerDav_.Constants;
 using SG_MAUI_RamSerDav_.MVVM.Abstractions;
-using SG_MAUI_RamSerDav_.MVVM.Constants;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
 using System.Linq.Expressions;
@@ -117,12 +117,10 @@ namespace SG_MAUI_RamSerDav_.Repositories
                 if (item.Id != 0)
                 {
                     result = connection.Update(item);
-                    StatusMessage = $"{result} row(s) updated";
                 }
                 else
                 {
                     result = connection.Insert(item);
-                    StatusMessage = $"{result} row(s) added";
                 }
             }
             catch (Exception ex)
