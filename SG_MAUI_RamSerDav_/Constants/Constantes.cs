@@ -1,4 +1,4 @@
-﻿using SQLite;
+using SQLite;
 
 namespace SG_MAUI_RamSerDav_.MVVM.Constants
 {
