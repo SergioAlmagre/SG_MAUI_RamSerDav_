@@ -1,0 +1,52 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:SG_MAUI_RamSerDav_.MVVM.Converter"
+             x:Class="SG_MAUI_RamSerDav_.MVVM.Views.LoginView"
+             Title="LoginView">
+    <ContentPage.Resources>
+        <conv:ConversorTema x:Key="ConversorTema"/>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <!-- Definimos el contenedor como Vertial-->
+        <VerticalStackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Padding="20">
+
+            <!-- Color Con Degradado-->
+            <StackLayout.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="LightBlue" Offset="0" />
+                    <GradientStop Color="MediumPurple" Offset="1" />
+                </LinearGradientBrush>
+            </StackLayout.Background>
+
+            <!-- Imagen y Switch del cambio de Tema -->     
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Margin="50,50,50,50">
+                <Image Source="maui.png" Aspect="AspectFit" HeightRequest="200" HorizontalOptions="CenterAndExpand" />
+                
+                
+                <VerticalStackLayout HorizontalOptions="EndAndExpand" VerticalOptions="End" Margin="50,50,50,50">
+                <Switch Toggled="CambiarTema_Toggled" VerticalOptions="Center" 
+                 IsToggled="{Binding TemaOscuroActivado}"/>
+                
+                <Label Text="{Binding TemaOscuroActivado, 
+                 Converter={StaticResource ConversorTema}}" 
+                 VerticalOptions="Center" />
+                    
+                </VerticalStackLayout>
+                
+            </HorizontalStackLayout>
+
+            <!-- Logica de Texto -->
+            <Entry Placeholder="Email" Text="{Binding Email}" />
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
+
+            <!-- Botones -->
+            <Button Text="Aceptar" Command="{Binding aceptarCommand}" IsEnabled="{Binding IsAceptarEnabled}" />
+            <Button Text="Limpiar" Command="{Binding limpiarCommand}" />
+            <Button Text="Salir" Command="{Binding ExitCommand}" />
+
+            
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>
+

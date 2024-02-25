@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:conv="clr-namespace:SG_MAUI_RamSerDav_.MVVM.Converter"
+             x:Class="SG_MAUI_RamSerDav_.MVVM.Views.GestionUsuariosView"
+             Title="GestionUsuariosView"
+             NavigationPage.HasNavigationBar="False">
+    
+    <ContentPage.Resources>
+        <conv:ConversorBooleanText x:Key="ConversorBooleanText"/>
+    </ContentPage.Resources>
+    
+    <Grid RowDefinitions="2*,4*,4*">
+        <!--BARRA DE NAVEGACION PERSONALIZADA-->
+        <Frame Grid.Row="0" BackgroundColor="LightCoral" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ImageButton Source="atras.png" WidthRequest="15" HeightRequest="15" HorizontalOptions="Start" Command="{Binding btnVolverCommand}"/>
+                <Label Text="Gestion de usuarios" TextColor="Black" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Grid.Column="1" />
+            </Grid>
+        </Frame>
+        <!--FIN BARRA DE NAVEGACION PERSONALIZADA-->
+        
+        
+        <VerticalStackLayout Grid.Row="1">
+            <Entry Placeholder="Email" Text="{Binding UsuarioActual.Email}"/>
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding UsuarioActual.Password}"/>
+            <Label  Text="{Binding UsuarioActual.EsDelegado,Converter={StaticResource ConversorBooleanText}}" TextColor="{StaticResource color4}"/>
+            <Button Text="Guardar" Command="{Binding GuardarCommand}"/>
+            <Button Text="Borrar" Command="{Binding EliminarCommand}"/>
+            <Button Text="Limpiar" Command="{Binding LimpiaCommand}" />
+        </VerticalStackLayout>
+        
+        
+        <!--Inicio de la CollectionView-->
+        <CollectionView Grid.Row="2" ItemsSource="{Binding ListaUsuarios}"  
+                SelectionMode="Single"  
+                SelectedItem="{Binding UsuarioActual}"
+                 >
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" />
+            </CollectionView.ItemsLayout>
+
+            <!--Establecemos el diseño de colección vacía desde aquí porque desde una resource dictionary hay problemas con la navegación-->
+            <CollectionView.EmptyView>
+                <VerticalStackLayout>
+                    <Label  Text="No hay usuarios" FontSize="Header" Margin="25,25,25,25" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="{StaticResource color8}"/>
+                    <Image Source="no_elementos.png" WidthRequest="200" HeightRequest="200" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+                
+            
+            <!--Dejamos preparado el diseño para implementar un dataTemplate pero con el CheckedChanded no hay manera desde un dictionaryResources-->
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="LightCoral" Margin="15,15,15,15" HeightRequest="250" WidthRequest="300">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Email}"/>
+                            <Label Text="{Binding Password}"/>
+                            <CheckBox IsChecked="{Binding EsDelegado}"
+                                      CheckedChanged="checkBox_CheckedChanged"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>
